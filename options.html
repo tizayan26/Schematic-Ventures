@@ -1,0 +1,37 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Search Quotes Safely - Options</title>
+    <style>
+   
+    </style>
+</head>
+<body>
+  
+</body>
+
+</html> -->
+
+<html>
+<body>
+
+<input id="input" type="test"/>
+<button id="btn">GO</button>
+<script>
+document.getElementById('btn').onclick = function(){
+console.log('test');
+var str = document.getElementById('input').value;
+// console.log(str.match(/.?!(jpg|jpeg|png|gif)$/i));
+var email = str.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-][^?!(jpg|jpeg|png|gif|doc|docx|psd|eps)]+)/gi);
+// var email = str.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
+
+// var res = email.match(/.?!(jpg|jpeg|png|gif)$/i);
+console.log(email);
+}
+</script>
+
+</body>
+</html>

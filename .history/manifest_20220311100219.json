@@ -1,0 +1,61 @@
+{
+    "name": "Schematic Ventures",
+    "version": "1.0",
+    "description": "Schematic Ventures CRM Extension",
+    "author": "Nasirul Akbar Khan",
+    
+    "options_page": "options.html",
+
+    "browser_action": {
+      "default_icon":{
+        "16": "assets/icons/sv-16x16.png",
+        "32": "assets/icons/sv-32x32.png",
+        "48": "assets/icons/sv-48x48.png",
+        "64": "assets/icons/sv-64x64.png",
+        "128": "assets/icons/sv-128x128.png"
+      }
+    },
+
+    "icons": {
+      "16": "assets/icons/sv-16x16.png",
+      "32": "assets/icons/sv-32x32.png",
+      "48": "assets/icons/sv-48x48.png",
+      "64": "assets/icons/sv-64x64.png",
+      "128": "assets/icons/sv-128x128.png"
+    },
+
+    "background": {
+      "all_frames": false,
+      "scripts": ["assets/js/background.js"],
+      "persistent": true
+    },
+
+    "content_scripts": [
+      {
+        "all_frames": false,
+        "js": ["assets/js/common.js", "assets/js/libs/jquery.js","assets/js/libs/airtable.js", "assets/js/popup.js", "assets/js/content.js"],
+        "matches": ["<all_urls>"],
+        "run_at": "document_end"
+      },{
+        "all_frames": true,
+        "js": ["assets/js/common.js","assets/js/gmail.js"],
+        "matches": ["*://mail.google.com/mail/*"],
+        "run_at": "document_start"
+      }
+    ],
+    
+    
+    "manifest_version": 2,
+
+  
+    "web_accessible_resources": [
+      "assets/css/style.css", "assets/icons/sv-32x32.png"
+    ],
+    "permissions": [
+      "storage",
+      "downloads",
+      "tabs",
+      "identity",
+      "identity.email"
+  ]
+}
