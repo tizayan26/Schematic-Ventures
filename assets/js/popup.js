@@ -45,7 +45,7 @@ function loadPopup() {
         </div>
     </div>
     <div class="row search-section">
-    <input type="text" placeholder="Search By Startup Name"/>
+    <input type="text" placeholder="Search By Startup Name" id="search"/>
     </div>
     <!-- start home -->
     <div id="home_content">
@@ -222,6 +222,9 @@ function loadPopup() {
     shadowRootPopup.getElementById('home_content').style.display = "block";
     shadowRootPopup.getElementById('edit_content').style.display = "none";
     shadowRootPopup.getElementById('entry_content').style.display = "none";
-
+    // shadowRootPopup.getElementById('search').addEventListener("change", function(){alert(this.value)})
+    // shadowRootPopup.getElementById('search').onblur = function(){
+    //     alert(this.value);
+    // }
 }
 

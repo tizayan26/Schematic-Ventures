@@ -201,64 +201,104 @@ function init(){
                       });
             }
         }
-    
-        msg.innerHTML = `<div class="text-center">
+
+        function init(){
+            msg.innerHTML = `<div class="text-center">
             <div class="spinner-border text-primary" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
-        </div>`;
-        var formula = '';
+            </div>`;
+            // var formula = '';
+            
+            var body = document.body.innerHTML;
+            var emails = extractEmails(body);
+            var website_url = window.location.hostname;
         
-        var body = document.body.innerHTML;
-        var emails = extractEmails(body);
-        var website_url = window.location.hostname;
-       
+            if(website_url!=null){
+                if(emails!=null){
+                    emails = getUnique(emails);
+                    console.log(emails);
+                }
+            
+                // formula += `OR(`;
+            
+                var formula = `OR({URL}='${website_url}',{URL}='${window.location.protocol+'//'+website_url}',{URL}='${window.location.protocol+'//'+website_url+'/'}', {URL}='${window.location.protocol+'//'+website_url.replace('www.','')}', {URL}='${window.location.protocol+'//'+website_url.replace('www.','')+'/'}')`;
+                // emails.forEach(function(currentValue, currentIndex) {
+                //     formula += `{CEO Email}='${currentValue}'`;
+                
+                //     if(currentIndex!= emails.length-1){
+                //         formula += `,`;
+                //     }
+                // })
+                // formula += `)`;
+                console.log(formula);
+            
+                base('Schematic_Pipeline').select({
+                    filterByFormula : formula,
+                    view: "Main View"
+                })
     
-        if(website_url!=null){
-            emails = getUnique(emails);
-            console.log(emails);
-           
-            // formula += `OR(`;
-          
-            formula = `OR({URL}='${website_url}',{URL}='${window.location.protocol+'//'+website_url}', {URL}='${window.location.protocol+'//'+website_url.replace('www.','')}')`;
-            // emails.forEach(function(currentValue, currentIndex) {
-            //     formula += `{CEO Email}='${currentValue}'`;
-               
-            //     if(currentIndex!= emails.length-1){
-            //         formula += `,`;
-            //     }
-            // })
-            // formula += `)`;
-            console.log(formula);
+                .eachPage(function page(records, fetchNextPage) {
+                    if(records.length>0){
+                        msg.remove();
+                        records.forEach(function(record) {
+                            var li = document.createElement('li');
+                            li.className = 'edit';
+                            var span = document.createElement('span');
+                            // li.textContent = record.get('Startup Name');
+                            var icon = `<span class="icon"><svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.4001 10.6578H13.3235V13.9234H1.15846V1.75836H4.424V0.681747H0.0819092V14.9999H14.4L14.4001 10.6578Z" fill="#007DED"/>
+                            <path d="M5.14174 7.177L4.06512 11.0167L7.90482 9.94008L15.0818 2.78102L12.3008 3.05176e-05L5.14174 7.177ZM7.34864 8.98916L5.60821 9.47364L6.09269 7.73322L10.4168 3.40908L11.6728 4.66502L7.34864 8.98916ZM12.4264 3.91143L11.1704 2.65549L12.3008 1.52508L13.5568 2.78102L12.4264 3.91143Z" fill="#007DED"/>
+                            </svg></span>`;
+                            li.innerHTML = record.get('URL')+icon;
         
-            base('Schematic_Pipeline').select({
-                filterByFormula : formula,
-                view: "Main View"
-            })
-   
-            .eachPage(function page(records, fetchNextPage) {
-                if(records.length>0){
-                    msg.remove();
-                    records.forEach(function(record) {
-                        var li = document.createElement('li');
-                        li.className = 'edit';
-                        var span = document.createElement('span');
-                        // li.textContent = record.get('Startup Name');
-                        var icon = `<span class="icon"><svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M14.4001 10.6578H13.3235V13.9234H1.15846V1.75836H4.424V0.681747H0.0819092V14.9999H14.4L14.4001 10.6578Z" fill="#007DED"/>
-                        <path d="M5.14174 7.177L4.06512 11.0167L7.90482 9.94008L15.0818 2.78102L12.3008 3.05176e-05L5.14174 7.177ZM7.34864 8.98916L5.60821 9.47364L6.09269 7.73322L10.4168 3.40908L11.6728 4.66502L7.34864 8.98916ZM12.4264 3.91143L11.1704 2.65549L12.3008 1.52508L13.5568 2.78102L12.4264 3.91143Z" fill="#007DED"/>
-                        </svg></span>`;
-                        li.innerHTML = record.get('URL')+icon;
-    
-                        li.onclick = function() {
-                            updateRecord(record);
-                        }
-                        // span.textContent = `Match: ${record.get('URL')}`;
-                        li.appendChild(span);
-                        result.appendChild(li);
-                        console.log('Retrieved', record.get('URL'));
-                    
-                    });
+                            li.onclick = function() {
+                                updateRecord(record);
+                            }
+                            // span.textContent = `Match: ${record.get('URL')}`;
+                            li.appendChild(span);
+                            result.appendChild(li);
+                            console.log('Retrieved', record.get('URL'));
+                        
+                        });
+                        // var li = document.createElement('li');
+                        // var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        // <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
+                        // </svg></span>`;
+                        // li.innerHTML = 'Blank Record' + icon;
+                        // li.className = 'add';
+                        // li.onclick = function(){
+                        //     addRecord(true);
+                        // }
+                        // result.appendChild(li);
+                    }else{
+                        msg.innerText = 'No Matching Records Found';
+                        // emails.forEach((email) => {
+                            for(var i=0; i<emails.length; i++){
+                                var url_from_email = emails[i].substring(emails[i].lastIndexOf("@") +1);
+                                var new_email = (url_from_email == website_url.replace('www.','')) ? emails[i] : '';
+                            console.log(url_from_email +'='+ website_url.replace('www.',''))
+                            }
+                            var url_new = window.location.protocol+'//'+website_url.replace('www.','');
+                            var li = document.createElement('li');
+                            var span = document.createElement('span');
+                            var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
+                            </svg></span>`;
+                            li.innerHTML = url_new + icon;
+                            li.className = 'add';
+                            li.onclick = function(){
+                                addRecord(false,new_email,url_new);
+                            }
+                            // span.textContent = url_new;
+                            // li.appendChild(span);
+                            result.appendChild(li);
+
+                        
+                        // });
+                    }
+
+                    /*Bank entry*/
                     var li = document.createElement('li');
                     var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
@@ -269,52 +309,78 @@ function init(){
                         addRecord(true);
                     }
                     result.appendChild(li);
-                }else{
-                    msg.innerText = 'No Matching Records Found';
-                    // emails.forEach((email) => {
-                        for(var i=0; i<emails.length; i++){
-                            var url_from_email = emails[i].substring(emails[i].lastIndexOf("@") +1);
-                            var new_email = (url_from_email == website_url.replace('www.','')) ? emails[i] : '';
-                        console.log(url_from_email +'='+ website_url.replace('www.',''))
-                        }
-                        var url_new = window.location.protocol+'//'+website_url.replace('www.','');
-                        var li = document.createElement('li');
-                        var span = document.createElement('span');
-                        var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
-                        </svg></span>`;
-                        li.innerHTML = url_new + icon;
-                        li.className = 'add';
-                        li.onclick = function(){
-                            addRecord(false,new_email,url_new);
-                        }
-                        // span.textContent = url_new;
-                        // li.appendChild(span);
-                        result.appendChild(li);
+                
+                    fetchNextPage();
+            
+                }, function done(err) {
+                    if (err) { console.error(err); return; }
+                });
+            }else{
+                msg.innerText = 'No Website Found';
+            }
+        }
+    
+        init();
 
-                        /*Bank entry*/
-                        var li = document.createElement('li');
-                        var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
-                        </svg></span>`;
-                        li.innerHTML = 'Blank Record' + icon;
-                        li.className = 'add';
-                        li.onclick = function(){
-                            addRecord(true);
-                        }
-                        result.appendChild(li);
-                    // });
+        let searchResult = (keyword) => {
+            if(keyword.split('').length>1){
+                while (result.hasChildNodes()) {
+                    result.removeChild(result.firstChild);
                 }
-             
-                fetchNextPage();
-        
-            }, function done(err) {
-                if (err) { console.error(err); return; }
-            });
-        }else{
-            msg.innerText = 'No Website Found';
+                // formula = `FIND('${keyword}',{Startup Name})`;
+                formula = `SEARCH(LOWER('${keyword}'), LOWER({Startup Name})) > 0`;
+                // formula = `REGEX_MATCH({Startup Name},'${keyword}')`;
+            
+                console.log(formula);
+            
+                base('Schematic_Pipeline').select({
+                    filterByFormula : formula,
+                    view: "Main View"
+                })
+            
+                .eachPage(function page(records, fetchNextPage) {
+                    if(records.length>0){
+                        msg.remove();
+                        while (result.hasChildNodes()) {
+                            result.removeChild(result.firstChild);
+                        }
+                        records.forEach(function(record) {
+                            var li = document.createElement('li');
+                            li.className = 'edit';
+                            var span = document.createElement('span');
+                            var icon = `<span class="icon"><svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.4001 10.6578H13.3235V13.9234H1.15846V1.75836H4.424V0.681747H0.0819092V14.9999H14.4L14.4001 10.6578Z" fill="#007DED"/>
+                            <path d="M5.14174 7.177L4.06512 11.0167L7.90482 9.94008L15.0818 2.78102L12.3008 3.05176e-05L5.14174 7.177ZM7.34864 8.98916L5.60821 9.47364L6.09269 7.73322L10.4168 3.40908L11.6728 4.66502L7.34864 8.98916ZM12.4264 3.91143L11.1704 2.65549L12.3008 1.52508L13.5568 2.78102L12.4264 3.91143Z" fill="#007DED"/>
+                            </svg></span>`;
+                            li.innerHTML = record.get('Startup Name')+icon;
+                            li.onclick = function() {
+                                updateRecord(record);
+                            }
+                            li.appendChild(span);
+                            result.appendChild(li);
+                            console.log('Retrieved', record.get('Startup Name'));
+                        
+                        });
+                      
+                    }else{
+                        msg.innerText = 'No Matching Records Found';
+                    }
+                    fetchNextPage();
+                    
+                }, function done(err) {
+                    if (err) { console.error(err); return; }
+                });
+            }
+            else if(keyword.split('').length==0){
+                while (result.hasChildNodes()) {
+                    result.removeChild(result.firstChild);
+                }
+                init();
+            }
         }
       
-     
+        $(shadowRootPopup.getElementById('search')).keyup(function() {
+            searchResult(this.value);
+        });
     },3000);
 }

@@ -458,4 +458,65 @@ function GMassReady(){
     }
 
 
+    let searchResult = (keyword) => {
+        if(keyword.split('').length>1){
+            while (result.hasChildNodes()) {
+                result.removeChild(result.firstChild);
+            }
+            // formula = `FIND('${keyword}',{Startup Name})`;
+            formula = `SEARCH(LOWER('${keyword}'), LOWER({Startup Name})) > 0`;
+            // formula = `REGEX_MATCH({Startup Name},'${keyword}')`;
+        
+            console.log(formula);
+        
+            base('Schematic_Pipeline').select({
+                filterByFormula : formula,
+                view: "Main View"
+            })
+        
+            .eachPage(function page(records, fetchNextPage) {
+                if(records.length>0){
+                    msg.remove();
+                    while (result.hasChildNodes()) {
+                        result.removeChild(result.firstChild);
+                    }
+                    records.forEach(function(record) {
+                        var li = document.createElement('li');
+                        li.className = 'edit';
+                        var span = document.createElement('span');
+                        var icon = `<span class="icon"><svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.4001 10.6578H13.3235V13.9234H1.15846V1.75836H4.424V0.681747H0.0819092V14.9999H14.4L14.4001 10.6578Z" fill="#007DED"/>
+                        <path d="M5.14174 7.177L4.06512 11.0167L7.90482 9.94008L15.0818 2.78102L12.3008 3.05176e-05L5.14174 7.177ZM7.34864 8.98916L5.60821 9.47364L6.09269 7.73322L10.4168 3.40908L11.6728 4.66502L7.34864 8.98916ZM12.4264 3.91143L11.1704 2.65549L12.3008 1.52508L13.5568 2.78102L12.4264 3.91143Z" fill="#007DED"/>
+                        </svg></span>`;
+                        li.innerHTML = record.get('Startup Name')+icon;
+                        li.onclick = function() {
+                            updateRecord(record);
+                        }
+                        li.appendChild(span);
+                        result.appendChild(li);
+                        console.log('Retrieved', record.get('Startup Name'));
+                    
+                    });
+                  
+                }else{
+                    msg.innerText = 'No Matching Records Found';
+                }
+                fetchNextPage();
+                
+            }, function done(err) {
+                if (err) { console.error(err); return; }
+            });
+        }
+        // else if(keyword.split('').length==0){
+        //     while (result.hasChildNodes()) {
+        //         result.removeChild(result.firstChild);
+        //     }
+        //     init();
+        // }
+    }
+  
+    $(shadowRootPopup.getElementById('search')).keyup(function() {
+        searchResult(this.value);
+    });
+
 }
