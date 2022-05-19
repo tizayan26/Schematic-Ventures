@@ -10,6 +10,8 @@ else{
 }
  
 function GMassReady(){
+    var clicked = false;
+
     var result = shadowRootPopup.getElementById('crm_result');
     var msg = shadowRootPopup.getElementById('msg');
     var edit_content = shadowRootPopup.getElementById('edit_content');
@@ -208,7 +210,9 @@ function GMassReady(){
     // if(location.href == "https://mail.google.com/mail/u/1/#inbox"){
         var nodes = document.querySelectorAll('tr[jscontroller=ZdOxDb');
         nodes.forEach((currentNode) => {
+            if (!clicked) {
            currentNode.addEventListener("click", function(){
+                   clicked = true;
                    home_content.style.display = "block";
                    edit_content.style.display = "none";
                    entry_content.style.display = "none";
@@ -328,12 +332,13 @@ function GMassReady(){
                            addRecord(null);
                        }
                        result.appendChild(li);
+                       clicked = false;
                    },3000);
                  
                });
            
            }
-         );
+        });
     // }
 
     let lastUrl = location.href; 

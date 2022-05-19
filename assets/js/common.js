@@ -28,7 +28,9 @@ let getUnique = (array) => {
     
     // Loop through array values
     for(i=0; i < array.length; i++){
-        if(uniqueArray.indexOf(array[i]) === -1) {
+        var domain = array[i].split('@')[1];
+        console.log(domain);
+        if(domain!= 'schematicventures.com' && uniqueArray.indexOf(array[i]) === -1) {
             uniqueArray.push(array[i]);
         }
     }
