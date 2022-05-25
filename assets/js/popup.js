@@ -17,10 +17,188 @@ function loadPopup() {
     head.appendChild(link);
 
 
-    var link = document.createElement('link');
-    link.rel = "stylesheet";
-    link.href = chrome.runtime.getURL('assets/css/style.css');
-    head.appendChild(link);
+    // var link = document.createElement('link');
+    // link.rel = "stylesheet";
+    // link.href = chrome.runtime.getURL('assets/css/style.css');
+    // head.appendChild(link);
+    var style = document.createElement('style');
+    style.innerHTML = `@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+    *{
+        font-family: 'Roboto', sans-serif;
+    }
+    body{
+        font-size: 12px;
+    }
+    hr{
+        margin: 0 0 5px 0;
+        border-top: 1px solid #BEBEBE;
+    }
+    .container-sv{
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgb(0 0 0 / 25%);
+        border-radius: 10px;
+        background: #fff;
+        width: 100%;
+    }
+    
+    ul.result-list{
+        overflow: auto;
+        /*height: 544px;*/
+        list-style: none;
+        padding: 0;
+    }
+    
+    ul.result-list > li{
+        margin: 6px 0;
+        padding: 10px;
+        /* border: 1px solid #BEBEBE; */
+        font-size: 14px;
+        color: rgb(54 54 54 / 90%);
+    
+    }
+    ul.result-list > li.add{
+        background-color: #F3F3F3;
+    }
+    ul.result-list > li.add:hover{
+        background-color: #E3E3E3;
+    }
+    
+    ul.result-list > li.edit{
+        background-color: #D9EDFF;
+    }
+    ul.result-list > li.edit:hover{
+        background-color: #ABD6FD;
+    }
+    
+    ul.result-list:first-child{
+        margin-top:0;
+    }
+    
+    ul.result-list:last-child{
+        margin-bottom:0;
+    }
+    
+    /* ul.result-list > li span{
+        display: block;
+        font-size: 12px;
+        color: rgb(149 149 149);
+    } */
+    
+    
+      
+      /* The Close Button */
+      .close {
+        color: #aaa;
+        font-size: 25px;
+        font-weight: bold;
+        position: relative;
+        left: 95%;
+      }
+      
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    
+      h4{
+          font-size: 20px;
+          display: inline;
+      }
+      .text-muted{
+          font-size:10px;
+      }
+      
+      .suggestion-links{
+          list-style: none;
+      }
+      #btn_add,#btn_update{
+          margin-top: 10px;
+          font-size: 12px!important;
+          padding: 8px 12px!important;
+          border-radius: 4px!important;
+      }
+      .btn-primary{
+        background-color: #D9EDFF;
+        border: none;
+        color: #007DED!important;
+        width:100%;
+        text-align: initial;
+      }
+      .btn-icon{
+        float: right;
+      }
+      .form-control,.form-select { font-size: 14px;}
+      h5{
+          font-size: 1.05rem;
+      }
+    .blue-logo-bar{
+        border: 2px solid #007DED;
+        position: relative;
+        top: 12px;
+        right: 4px;
+    }
+    .top-right-head{
+        /* position: absolute;
+        top: 20px;
+        right: 10px; */
+        position: relative;
+        top: 2px;
+        left: 40px;
+        font-size: 12px;
+        color: #686868;
+    }
+    
+    .search-section{
+        border-top: 1px solid #BEBEBE;
+        border-bottom: 1px solid #BEBEBE;
+        padding: 15px 10px;
+    }
+    
+    .search-section > input[type=text]{
+        border: 1px solid #BEBEBE;
+        color:#3A3A3A;
+        font-size: 14px;
+        outline: none;
+        padding: 8px 12px
+    }
+    
+    .msg{
+        background-color: #FFEAEA;
+        padding: 10px;
+        color: rgb(54 54 54 / 90%);
+        font-size: 14px;
+        margin: 15px 0;
+    }
+    
+    .result-list > li > .icon{
+        float: right;
+    }
+    
+    .line{
+        padding-top:10px;
+        border-top: 1px solid #BEBEBE;
+    }
+    
+    #entry_content,#edit_content{
+        padding-bottom: 10px;
+    }
+    .form-control,.form-select{
+        background-color:#F6F6F6;
+        color:rgb(58,58,58,90%);
+        border: none;
+    }
+    .form-control:focus,.form-control:hover,.form-select:hover{
+        color: #212529;
+        background-color: #b7b7b7;
+        border: none;
+        outline: 0;
+        box-shadow: none;
+    }
+    `;
+
+    head.appendChild(style);
 
     // var link = document.createElement('link');
     // link.rel = "stylesheet";
@@ -44,11 +222,12 @@ function loadPopup() {
         <span class="top-right-head">Deal CRM</span>
         </div>
     </div>
-    <div class="row search-section">
-    <input type="text" placeholder="Search By Startup Name" id="search"/>
-    </div>
+   
     <!-- start home -->
     <div id="home_content">
+        <div class="row search-section">
+        <input type="text" placeholder="Search By Startup Name" id="search"/>
+        </div>
         <div class="row">
             <div class="col-sm">
                 <div class="form-group">
@@ -78,12 +257,39 @@ function loadPopup() {
                 </div>
                 <div class="form-group">
                     <label class="form-text">Lead</label>
-                    <input type="text" class="form-control" id="lead_new" placeholder="Enter Lead">
+                    <!--input type="text" class="form-control" id="lead_new" placeholder="Enter Lead"-->
+                    <select class="form-select" id="lead_new">
+                    <option value="Alex" selected>Alex</option>
+                    <option value="Aditya">Aditya</option>
+                    <option value="Julian">Julian</option>
+                    </select>
                     <small class="form-text text-muted">Use comma seperated string for mutiple values</small>
                 </div>
                 <div class="form-group">
                     <label class="form-text">Vertical</label>
-                    <input type="text" class="form-control" id="vertical_new" value="Supply Chain" placeholder="Enter Vertical">
+                    <!--input type="text" class="form-control" id="vertical_new" value="Supply Chain" placeholder="Enter Vertical"-->
+                    <select class="form-select" " id="vertical_new">
+                    <option value="Supply Chain" selected>Supply Chain</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Manufacturing">Manufacturing</option>
+                    <option value="Ecommerce">Ecommerce</option>
+                    <option value="Aerospace">Aerospace</option>
+                    <option value="Agriculture">Agriculture</option>
+                    <option value="Automotive">Automotive</option>
+                    <option value="Construction">Construction</option>
+                    <option value="Infrastructure">Infrastructure</option>
+                    <option value="Energy">Energy</option>
+                    <option value="Enterprise">Enterprise</option>
+                    <option value="Food">Food</option>
+                    <option value="Maritime">Maritime</option>
+                    <option value="Material Science">Material Science</option>
+                    <option value="Mining">Mining</option>
+                    <option value="Other">Other</option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Retail">Retail</option>
+                    <option value="Robotics">Robotics</option>
+                    <option value="Procurement">Procurement</option>
+                    </select>
                     <small class="form-text text-muted">Use comma seperated string for mutiple values</small>
                 </div>
 
@@ -132,7 +338,10 @@ function loadPopup() {
                 </div-->
                 <div>Progress: <span id="progress_add"></span></div>
                 </div>
-                <button class="btn btn-primary" id="btn_add">Add Record</button>
+                <button class="btn btn-primary" id="btn_add">Save Record <span class="icon btn-icon"><svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.4001 10.6578H13.3235V13.9234H1.15846V1.75836H4.424V0.681747H0.0819092V14.9999H14.4L14.4001 10.6578Z" fill="#007DED"/>
+                <path d="M5.14174 7.177L4.06512 11.0167L7.90482 9.94008L15.0818 2.78102L12.3008 3.05176e-05L5.14174 7.177ZM7.34864 8.98916L5.60821 9.47364L6.09269 7.73322L10.4168 3.40908L11.6728 4.66502L7.34864 8.98916ZM12.4264 3.91143L11.1704 2.65549L12.3008 1.52508L13.5568 2.78102L12.4264 3.91143Z" fill="#007DED"/>
+                </svg></span></button>
                 <small class="form-text text-muted" id="add-msg"></small>
             </div>
         </div>
@@ -154,12 +363,39 @@ function loadPopup() {
                 </div>
                 <div class="form-group">
                     <label class="form-text">Lead</label>
-                    <input type="text" class="form-control" id="lead" placeholder="Enter Lead">
+                    <!--input type="text" class="form-control" id="lead" placeholder="Enter Lead"-->
+                    <select class="form-select" id="lead">
+                    <option value="Alex" selected>Alex</option>
+                    <option value="Aditya">Aditya</option>
+                    <option value="Julian">Julian</option>
+                    </select>
                     <small class="form-text text-muted">Use comma seperated string for mutiple values</small>
                 </div>
                 <div class="form-group">
                     <label class="form-text">Vertical</label>
-                    <input type="text" class="form-control" id="vertical" value="Supply Chain" placeholder="Enter Vertical">
+                    <!--input type="text" class="form-control" id="vertical" value="Supply Chain" placeholder="Enter Vertical"-->
+                    <select class="form-select" " id="vertical">
+                    <option value="Supply Chain" selected>Supply Chain</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Manufacturing">Manufacturing</option>
+                    <option value="Ecommerce">Ecommerce</option>
+                    <option value="Aerospace">Aerospace</option>
+                    <option value="Agriculture">Agriculture</option>
+                    <option value="Automotive">Automotive</option>
+                    <option value="Construction">Construction</option>
+                    <option value="Infrastructure">Infrastructure</option>
+                    <option value="Energy">Energy</option>
+                    <option value="Enterprise">Enterprise</option>
+                    <option value="Food">Food</option>
+                    <option value="Maritime">Maritime</option>
+                    <option value="Material Science">Material Science</option>
+                    <option value="Mining">Mining</option>
+                    <option value="Other">Other</option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Retail">Retail</option>
+                    <option value="Robotics">Robotics</option>
+                    <option value="Procurement">Procurement</option>
+                    </select>
                     <small class="form-text text-muted">Use comma seperated string for mutiple values</small>
                 </div>
 
@@ -203,7 +439,10 @@ function loadPopup() {
                 <input id="file_update" type="file" />
                 <div>Progress: <span id="progress_update"></span></div>
                 </div>
-                <button class="btn btn-primary" id="btn_update">Update Record</button>
+                <button class="btn btn-primary" id="btn_update">Save Record <span class="icon btn-icon"><svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.4001 10.6578H13.3235V13.9234H1.15846V1.75836H4.424V0.681747H0.0819092V14.9999H14.4L14.4001 10.6578Z" fill="#007DED"/>
+                <path d="M5.14174 7.177L4.06512 11.0167L7.90482 9.94008L15.0818 2.78102L12.3008 3.05176e-05L5.14174 7.177ZM7.34864 8.98916L5.60821 9.47364L6.09269 7.73322L10.4168 3.40908L11.6728 4.66502L7.34864 8.98916ZM12.4264 3.91143L11.1704 2.65549L12.3008 1.52508L13.5568 2.78102L12.4264 3.91143Z" fill="#007DED"/>
+                </svg></span></button>
                 <small class="form-text text-muted" id="update-msg"></small>
             </div>
         </div>

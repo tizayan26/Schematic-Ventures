@@ -144,15 +144,15 @@ function GMassReady(){
         if(email!=null){
             shadowRootPopup.getElementById('ceo_email_new').value = email;
             var url_new = email.substring(email.lastIndexOf("@") +1);
-            shadowRootPopup.getElementById('startup_name_new').value = url_new;
+            shadowRootPopup.getElementById('startup_name_new').value = url_new.split('.')[0];
             shadowRootPopup.getElementById('url_new').value = url_new;
-            shadowRootPopup.getElementById('source_new').value = window.location.href;
+            // shadowRootPopup.getElementById('source_new').value = window.location.href;
         }else{
             shadowRootPopup.getElementById('ceo_email_new').value = '';
             shadowRootPopup.getElementById('startup_name_new').value = '';
             shadowRootPopup.getElementById('url_new').value = '';
-            shadowRootPopup.getElementById('source_new').value = '';
         }
+        shadowRootPopup.getElementById('source_new').value = '';
     
         shadowRootPopup.getElementById('btn_add').onclick = function(){
             this.innerHTML = `
@@ -210,8 +210,9 @@ function GMassReady(){
     // if(location.href == "https://mail.google.com/mail/u/1/#inbox"){
         var nodes = document.querySelectorAll('tr[jscontroller=ZdOxDb');
         nodes.forEach((currentNode) => {
-            if (!clicked) {
+       
            currentNode.addEventListener("click", function(){
+            if (!clicked) {
                    clicked = true;
                    home_content.style.display = "block";
                    edit_content.style.display = "none";
@@ -259,6 +260,9 @@ function GMassReady(){
                            if(records.length>0){
                                msg.innerHTML = '';
                                msg.style.display = 'none';
+                               while (result.hasChildNodes()) {
+                                result.removeChild(result.firstChild);
+                              }
                                records.forEach((record) => {
                                    var li = document.createElement('li');
                                    li.className = 'edit';
@@ -295,7 +299,16 @@ function GMassReady(){
                                 // span.textContent = email;
                                 // li.appendChild(span);
                                 result.appendChild(li);
-                          
+                                var li = document.createElement('li');
+                                var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
+                                </svg></span>`;
+                                li.innerHTML = 'Blank Record' + icon;
+                                li.className = 'add';
+                                li.onclick = function(){
+                                    addRecord(null);
+                                }
+                                result.appendChild(li);
                             });
                            }else{
                                msg.style.display = 'block';
@@ -316,28 +329,28 @@ function GMassReady(){
                                    result.appendChild(li);
                              
                                });
+                               var li = document.createElement('li');
+                               var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                               <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
+                               </svg></span>`;
+                               li.innerHTML = 'Blank Record' + icon;
+                               li.className = 'add';
+                               li.onclick = function(){
+                                   addRecord(null);
+                               }
+                               result.appendChild(li);
                            }
                            fetchNextPage();
                    
                        }, function done(err) {
                            if (err) { console.error(err); return; }
                        });
-                       var li = document.createElement('li');
-                       var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                       <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
-                       </svg></span>`;
-                       li.innerHTML = 'Blank Record' + icon;
-                       li.className = 'add';
-                       li.onclick = function(){
-                           addRecord(null);
-                       }
-                       result.appendChild(li);
+                     
                        clicked = false;
                    },3000);
-                 
+                }
                });
            
-           }
         });
     // }
 
