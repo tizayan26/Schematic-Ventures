@@ -154,6 +154,8 @@ $(document).ready(function(){
                     // shadowRootPopup.getElementById('stage').querySelector(`option[value=Lead]`).selected = 'selected';
                     shadowRootPopup.getElementById('stage').value = 'Lead';
                 }
+                if(record1.get('Description') !== undefined)
+                shadowRootPopup.getElementById('desc').value =  record1.get('Description');
                 var url = record1.get('CEO Email').substring(record1.get('CEO Email').lastIndexOf("@") +1);
                 shadowRootPopup.getElementById('url').value = record1.get('URL') === undefined ? url : record1.get('URL') ;
                 if(record1.get('CEO LinkedIn') !== undefined)
@@ -178,6 +180,7 @@ $(document).ready(function(){
                             "Stage": shadowRootPopup.getElementById('stage').value,
                             "Lead": lead_arr,
                             "URL": shadowRootPopup.getElementById('url').value,
+                            "Description": shadowRootPopup.getElementById('desc').value,
                             "CEO LinkedIn": shadowRootPopup.getElementById('ceo_linkedin').value,
                             "Status": "",
                             "Sourced By": {
@@ -241,6 +244,7 @@ $(document).ready(function(){
                         "Stage": shadowRootPopup.getElementById('stage_new').value,
                         "Lead": lead_arr,
                         "URL": shadowRootPopup.getElementById('url_new').value,
+                        "Description": shadowRootPopup.getElementById('desc_new').value,
                         "CEO LinkedIn": shadowRootPopup.getElementById('ceo_linkedin_new').value,
                         "Status": "",
                         "Sourced By": {

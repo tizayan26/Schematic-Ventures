@@ -126,6 +126,9 @@ function loadPopup() {
         width:100%;
         text-align: initial;
       }
+      .btn-primary:hover{
+          color:#fff;
+      }
       .btn-icon{
         float: right;
       }
@@ -196,6 +199,52 @@ function loadPopup() {
         outline: 0;
         box-shadow: none;
     }
+
+    .custom-file-input::-webkit-file-upload-button {
+        visibility: hidden;
+      }
+    
+    .custom-file-input::before {
+    content: 'Add New Attachment';
+    display: inline-block;
+    background-color: #F6F6F6;
+    color: rgb(58,58,58,90%);
+    border: none;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    outline: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    background-image: url("data:image/svg+xml,%3Csvg width='13' height='13' viewBox='0 0 13 13' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z' fill='%23767676'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right;
+    }
+    .custom-file-input:hover::before {
+    color: #212529;
+    background-color: #b7b7b7;
+    border: none;
+    outline: 0;
+    box-shadow: none;
+    }
+    .custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+    }
+    textarea::-webkit-scrollbar {
+        height: 6px;
+        width: 6px;
+        background-color: #D4D4D4;
+    }
+    textarea::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    }   
+    textarea::-webkit-scrollbar-thumb {
+        border-radius: 2px;
+        background-color: #505050;
+    }
     `;
 
     head.appendChild(style);
@@ -263,7 +312,7 @@ function loadPopup() {
                     <option value="Aditya">Aditya</option>
                     <option value="Julian">Julian</option>
                     </select>
-                    <small class="form-text text-muted">Use comma seperated string for mutiple values</small>
+                    <!--small class="form-text text-muted">Use comma seperated string for mutiple values</small-->
                 </div>
                 <div class="form-group">
                     <label class="form-text">Vertical</label>
@@ -290,7 +339,7 @@ function loadPopup() {
                     <option value="Robotics">Robotics</option>
                     <option value="Procurement">Procurement</option>
                     </select>
-                    <small class="form-text text-muted">Use comma seperated string for mutiple values</small>
+                    <!--small class="form-text text-muted">Use comma seperated string for mutiple values</small-->
                 </div>
 
                 <div class="form-group">
@@ -319,6 +368,10 @@ function loadPopup() {
                     <!--small class="form-text text-muted">URL</small-->
                 </div>
                 <div class="form-group">
+                    <label class="form-text">Description</label>
+                    <textarea class="form-control" id="desc_new" rows="3"></textarea>
+                </div>
+                <div class="form-group">
                     <label class="form-text">CEO LinkedIn</label>
                     <input type="text" class="form-control" id="ceo_linkedin_new" placeholder="Enter CEO LinkedIn">
                     <!--small class="form-text text-muted">CEO LinkedIn</small-->
@@ -329,8 +382,8 @@ function loadPopup() {
                     <!--small class="form-text text-muted">Source</small-->
                 </div>
                 <div class="form-group">
-                <label class="form-text">Attachment</label>
-                <input id="file_add" type="file" />
+                <label class="form-text">Attachment</label><br>
+                <input class="custom-file-input" id="file_add" type="file" />
                 <!--div class="controls">
                   <button id="cancel">Cancel</button>
                   <button id="pause">Pause</button>
@@ -369,7 +422,7 @@ function loadPopup() {
                     <option value="Aditya">Aditya</option>
                     <option value="Julian">Julian</option>
                     </select>
-                    <small class="form-text text-muted">Use comma seperated string for mutiple values</small>
+                    <!--small class="form-text text-muted">Use comma seperated string for mutiple values</small-->
                 </div>
                 <div class="form-group">
                     <label class="form-text">Vertical</label>
@@ -396,7 +449,7 @@ function loadPopup() {
                     <option value="Robotics">Robotics</option>
                     <option value="Procurement">Procurement</option>
                     </select>
-                    <small class="form-text text-muted">Use comma seperated string for mutiple values</small>
+                    <!--small class="form-text text-muted">Use comma seperated string for mutiple values</small-->
                 </div>
 
                 <div class="form-group">
@@ -425,6 +478,10 @@ function loadPopup() {
                     <!--small class="form-text text-muted">URL</small-->
                 </div>
                 <div class="form-group">
+                <label class="form-text">Description</label>
+                <textarea class="form-control" id="desc" rows="3"></textarea>
+            </div>
+                <div class="form-group">
                     <label class="form-text">CEO LinkedIn</label>
                     <input type="text" class="form-control" id="ceo_linkedin" placeholder="Enter CEO LinkedIn">
                     <!--small class="form-text text-muted">CEO LinkedIn</small-->
@@ -435,8 +492,8 @@ function loadPopup() {
                     <!--small class="form-text text-muted">Source</small-->
                 </div>
                 <div class="form-group">
-                <label class="form-text">Attachment</label>
-                <input id="file_update" type="file" />
+                <label class="form-text">Attachment</label><br>
+                <input class="custom-file-input" id="file_update" type="file" />
                 <div>Progress: <span id="progress_update"></span></div>
                 </div>
                 <button class="btn btn-primary" id="btn_update">Save Record <span class="icon btn-icon"><svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
