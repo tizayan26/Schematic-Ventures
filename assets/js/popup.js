@@ -127,7 +127,7 @@ function loadPopup() {
         text-align: initial;
       }
       .btn-primary:hover{
-          color:#fff;
+        background-color: rgba(171,214,253,90%)
       }
       .btn-icon{
         float: right;
@@ -192,7 +192,7 @@ function loadPopup() {
         color:rgb(58,58,58,90%);
         border: none;
     }
-    .form-control:focus,.form-control:hover,.form-select:hover{
+    .form-control:focus,.form-control:hover,.form-select:hover,.form-select:focus{
         color: #212529;
         background-color: #b7b7b7;
         border: none;

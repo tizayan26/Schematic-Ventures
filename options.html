@@ -1,37 +1,154 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Search Quotes Safely - Options</title>
+    <title>Schematic Venture CRM - Settings</title>
     <style>
-   
+
+        /* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 22px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 25px;
+  left: 4px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+h1{
+    color:rgba(29, 29, 29, 90%);
+    font-size: 20px;
+    text-align: center;
+}
+table{
+    margin:0 auto;
+}
+table thead th:first-of-type{
+    width: 200px;
+    text-align: left;
+}
+table th{
+    color:rgba(58, 58, 58, 90%);
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 8px;
+}
+table td{
+    color:rgba(58, 58, 58, 90%);
+    font-size: 14px;
+}
+
+.border{
+    border-top:1px solid #969696;
+}
+
     </style>
+    <script src="./assets/js/libs/jquery.js"></script>
+    <script src="./assets/js/option.js"></script>
+    <!-- <script>
+        document.getElementById('btn').onclick = function(){
+        console.log('test');
+        var str = document.getElementById('input').value;
+        var email = str.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-][^?!(jpg|jpeg|png|gif|doc|docx|psd|eps)]+)/gi);
+        
+        }
+    </script> -->
 </head>
 <body>
-  
-</body>
 
-</html> -->
-
-<html>
-<body>
-
-<input id="input" type="test"/>
-<button id="btn">GO</button>
-<script>
-document.getElementById('btn').onclick = function(){
-console.log('test');
-var str = document.getElementById('input').value;
-// console.log(str.match(/.?!(jpg|jpeg|png|gif)$/i));
-var email = str.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-][^?!(jpg|jpeg|png|gif|doc|docx|psd|eps)]+)/gi);
-// var email = str.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
-
-// var res = email.match(/.?!(jpg|jpeg|png|gif)$/i);
-console.log(email);
-}
-</script>
-
+<!-- <input id="input" type="test"/>
+<button id="btn">GO</button> -->
+<h1>Extension Launch Settings</h1>
+<table>
+    <thead>
+        <tr><th>Environment</th><th>Always</th><th>On Match</th></tr>
+        <tr><td colspan="3"><p class="border"></p></td></tr>
+    </thead>
+    <tbody>
+        <tr><td>Gmail</td>
+            <td>
+                <label class="switch">
+                    <input type="checkbox" id="galways">
+                    <span class="slider"></span>
+                </label>
+            </td>
+            <td>
+                <label class="switch">
+                    <input type="checkbox" id="gmatch" >
+                    <span class="slider"></span>
+                </label>
+            </td>
+        </tr>
+        <tr><td>LinkedIn</td>
+            <td>
+                <label class="switch">
+                    <input type="checkbox" id="lalways">
+                    <span class="slider"></span>
+                </label>
+            </td>
+            <td>
+                <label class="switch">
+                    <input type="checkbox" id="lmatch">
+                    <span class="slider"></span>
+                </label>
+            </td>
+        </tr>
+        <tr><td>Website</td>
+            <td>
+                <label class="switch">
+                    <input type="checkbox" id="walways">
+                    <span class="slider"></span>
+                </label>
+            </td>
+            <td>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider" id="wmatch"></span>
+                </label>
+            </td>
+        </tr>
+    </tbody>
+</table>
 </body>
 </html>
