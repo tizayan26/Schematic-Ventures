@@ -250,6 +250,12 @@ function init(){
     
                 .eachPage(function page(records, fetchNextPage) {
                     if(records.length>0){
+                        chrome.storage.local.get(['wmatch'], function(result) {
+                            console.log('Value currently is ' + result.wmatch);
+                            if(result.wmatch){
+                                $('#shadow-wrapper-popup-sv').slideToggle("slow");
+                            }
+                        });
                         msg.remove();
                         records.forEach(function(record) {
                             var li = document.createElement('li');
@@ -350,6 +356,12 @@ function init(){
             
                 .eachPage(function page(records, fetchNextPage) {
                     if(records.length>0){
+                        chrome.storage.local.get(['wmatch'], function(result) {
+                            console.log('Value currently is ' + result.wmatch);
+                            if(result.wmatch){
+                                $('#shadow-wrapper-popup-sv').slideToggle("slow");
+                            }
+                        });
                         msg.remove();
                         while (result.hasChildNodes()) {
                             result.removeChild(result.firstChild);

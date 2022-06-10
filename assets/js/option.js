@@ -16,18 +16,44 @@ $(document).ready(()=>{
         });
       
     });
+    $('#gmatch').change(function(){
+        chrome.storage.local.set({gmatch: $('#gmatch').prop('checked')}, function() {
+            console.log('gmatch is set to ' + $('#gmatch').prop('checked'));
+        });
+      
+    });
+    $('#lmatch').change(function(){
+        chrome.storage.local.set({lmatch: $('#lmatch').prop('checked')}, function() {
+            console.log('lmatch is set to ' + $('#lmatch').prop('checked'));
+        });
+      
+    });
+    $('#wmatch').change(function(){
+        chrome.storage.local.set({wmatch: $('#wmatch').prop('checked')}, function() {
+            console.log('wmatch is set to ' + $('#wmatch').prop('checked'));
+        });
+      
+    });
 
-    chrome.storage.local.get(['galways','lalways','walways'], function(result) {
+    chrome.storage.local.get(['galways','lalways','walways','gmatch','lmatch'], function(result) {
         if(result.galways!=undefined){
             console.log('Value currently is ' + result.galways);
-            $('#galways').prop('checked',result.galways)
+            $('#galways').prop('checked',result.galways);
         }
         if(result.lalways!=undefined){
-            $('#lalways').prop('checked',result.lalways)
+            $('#lalways').prop('checked',result.lalways);
         }
         if(result.walways!=undefined){
-            $('#walways').prop('checked',result.walways)
+            $('#walways').prop('checked',result.walways);
         }
-
+        if(result.gmatch!=undefined){
+            $('#gmatch').prop('checked',result.gmatch);
+        }
+        if(result.lmatch!=undefined){
+            $('#lmatch').prop('checked',result.lmatch);
+        }
+        if(result.wmatch!=undefined){
+            $('#wmatch').prop('checked',result.wmatch);
+        }
     })
 })

@@ -59,6 +59,12 @@ $(document).ready(function(){
                 .eachPage(function page(records, fetchNextPage) {
                     // This function (`page`) will get called for each page of records
                     if(records.length>0){
+                        chrome.storage.local.get(['lmatch'], function(result) {
+                            console.log('Value currently is ' + result.lmatch);
+                            if(result.lmatch){
+                                $('#shadow-wrapper-popup-sv').slideToggle("slow");
+                            }
+                        });
                         msg.innerHTML = '';
                         msg.style.display = 'none';
                         records.forEach(function(record) {
@@ -321,6 +327,12 @@ $(document).ready(function(){
             
                 .eachPage(function page(records, fetchNextPage) {
                     if(records.length>0){
+                        chrome.storage.local.get(['lmatch'], function(result) {
+                            console.log('Value currently is ' + result.lmatch);
+                            if(result.lmatch){
+                                $('#shadow-wrapper-popup-sv').slideToggle("slow");
+                            }
+                        });
                         msg.remove();
                         while (result.hasChildNodes()) {
                             result.removeChild(result.firstChild);

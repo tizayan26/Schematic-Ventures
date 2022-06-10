@@ -269,6 +269,12 @@ function GMassReady(){
                            view: "Main View"
                        }).eachPage(function page(records, fetchNextPage) {
                            if(records.length>0){
+                                chrome.storage.local.get(['gmatch'], function(result) {
+                                    console.log('Value currently is ' + result.gmatch);
+                                    if(result.gmatch){
+                                        $('#shadow-wrapper-popup-sv').slideToggle("slow");
+                                    }
+                                });
                                msg.innerHTML = '';
                                msg.style.display = 'none';
                                while (result.hasChildNodes()) {
@@ -407,6 +413,12 @@ function GMassReady(){
                 view: "Main View"
             }).eachPage(function page(records, fetchNextPage) {
                 if(records.length>0){
+                    chrome.storage.local.get(['gmatch'], function(result) {
+                        console.log('Value currently is ' + result.gmatch);
+                        if(result.gmatch){
+                            $('#shadow-wrapper-popup-sv').slideToggle("slow");
+                        }
+                    });
                     msg.innerHTML = '';
                     msg.style.display = 'none';
                     records.forEach((record) => {
@@ -505,6 +517,12 @@ function GMassReady(){
         
             .eachPage(function page(records, fetchNextPage) {
                 if(records.length>0){
+                    chrome.storage.local.get(['gmatch'], function(result) {
+                        console.log('Value currently is ' + result.gmatch);
+                        if(result.gmatch){
+                            $('#shadow-wrapper-popup-sv').slideToggle("slow");
+                        }
+                    });
                     msg.remove();
                     while (result.hasChildNodes()) {
                         result.removeChild(result.firstChild);
