@@ -343,6 +343,7 @@ function loadPopup() {
                 </div>
 
                 <div class="form-group">
+                    <label class="form-text">Stage</label>
                     <select class="form-select" id="stage_new">
                         <option value="Lead" selected>Lead</option>
                         <option value="Prospecting">Prospecting</option>
@@ -453,6 +454,7 @@ function loadPopup() {
                 </div>
 
                 <div class="form-group">
+                    <label class="form-text">Stage</label>
                     <select class="form-select" id="stage">
                         <option value="Lead">Lead</option>
                         <option value="Prospecting">Prospecting</option>

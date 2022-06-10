@@ -35,7 +35,24 @@ $(document).ready(()=>{
       
     });
 
-    chrome.storage.local.get(['galways','lalways','walways','gmatch','lmatch'], function(result) {
+    $('#popsn').change(function(){
+        chrome.storage.local.set({popsn: $('#popsn').prop('checked'),orsn: $('#orsn').val()}, function() {
+            console.log('popsn is set to ' + $('#popsn').prop('checked') +'orsn = '+$('#orsn').val());
+        });
+    });
+    $('#poplead').change(function(){
+        chrome.storage.local.set({poplead: $('#poplead').prop('checked'),orsn: $('#orlead').val()}, function() {
+            console.log('poplead is set to ' + $('#poplead').prop('checked') +'orlead = '+$('#orlead').val());
+        });
+    });
+    $('#popurl').change(function(){
+        chrome.storage.local.set({popurl: $('#popurl').prop('checked'),orsn: $('#orurl').val()}, function() {
+            console.log('popurl is set to ' + $('#popurl').prop('checked') +'orurl = '+$('#orurl').val());
+        });
+    });
+
+
+    chrome.storage.local.get(['galways','lalways','walways','gmatch','lmatch','popsn','poplead','popurl'], function(result) {
         if(result.galways!=undefined){
             console.log('Value currently is ' + result.galways);
             $('#galways').prop('checked',result.galways);
@@ -54,6 +71,15 @@ $(document).ready(()=>{
         }
         if(result.wmatch!=undefined){
             $('#wmatch').prop('checked',result.wmatch);
+        }
+        if(result.popsn!=undefined){
+            $('#popsn').prop('checked',result.popsn);
+        }
+        if(result.poplead!=undefined){
+            $('#poplead').prop('checked',result.popsn);
+        }
+        if(result.popurl!=undefined){
+            $('#popurl').prop('checked',result.popsn);
         }
     })
 })

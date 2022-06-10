@@ -148,8 +148,28 @@ function init(){
             close_a.onclick = backToHome;
             if(!blank){
                 shadowRootPopup.getElementById('ceo_email_new').value =  new_email;
-                shadowRootPopup.getElementById('startup_name_new').value = document.title;
-                shadowRootPopup.getElementById('url_new').value = url_new;
+                chrome.storage.local.get(['popsn','orsn'], function(result) {
+                    if(result.popsn!=undefined){
+                        if(result.popsn){
+                            shadowRootPopup.getElementById('startup_name_new').value = (result.orsn!='') ? result.orsn : document.title;
+                        }else{
+                            shadowRootPopup.getElementById('startup_name_new').value = ''; 
+                        }
+                    }else{
+                        shadowRootPopup.getElementById('startup_name_new').value = document.title; 
+                    }
+                });
+                chrome.storage.local.get(['popurl','orurl'], function(result) {
+                    if(result.popurl!=undefined){
+                        if(result.popurl){
+                            shadowRootPopup.getElementById('url_new').value = (result.orurl!='') ? result.orurl : url_new;
+                        }else{
+                            shadowRootPopup.getElementById('url_new').value = '';
+                        }
+                    }else{
+                        shadowRootPopup.getElementById('url_new').value = url_new;
+                    }
+                });
                 shadowRootPopup.getElementById('source_new').value = window.location.href;
             }else{
                 shadowRootPopup.getElementById('ceo_email_new').value =  '';
