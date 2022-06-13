@@ -237,7 +237,94 @@ $(document).ready(function(){
             // shadowRootPopup.getElementById('startup_name_new').value = url_new;
             // shadowRootPopup.getElementById('url_new').value = url_new;
             shadowRootPopup.getElementById('ceo_linkedin_new').value = ceo_linkedin == null ? '' : ceo_linkedin;
-            shadowRootPopup.getElementById('source_new').value = ceo_linkedin == null ? '' : window.location.href;
+
+            chrome.storage.local.get(['popsn','orsn'], function(result) {
+                if(result.popsn!=undefined){
+                    if(result.popsn){
+                        shadowRootPopup.getElementById('startup_name_new').value = (result.orsn!='') ? result.orsn : document.title;
+                    }else{
+                        shadowRootPopup.getElementById('startup_name_new').value = ''; 
+                    }
+                }else{
+                    shadowRootPopup.getElementById('startup_name_new').value = document.title; 
+                }
+            });
+            chrome.storage.local.get(['poplead','orlead'], function(result) {
+                if(result.poplead!=undefined){
+                    if(result.poplead){
+                        shadowRootPopup.getElementById('lead_new').value = result.orlead;
+                    }else{
+                        shadowRootPopup.getElementById('lead_new').value = 'Alex'; 
+                    }
+                }else{
+                    shadowRootPopup.getElementById('lead_new').value = 'Alex'; 
+                }
+            });
+
+            chrome.storage.local.get(['popver','orver'], function(result) {
+                if(result.popver!=undefined){
+                    if(result.popver){
+                        shadowRootPopup.getElementById('vertical_new').value = result.orver;
+                    }else{
+                        shadowRootPopup.getElementById('vertical_new').value = 'Supply Chain'; 
+                    }
+                }else{
+                    shadowRootPopup.getElementById('vertical_new').value = 'Supply Chain'; 
+                }
+            });
+
+            chrome.storage.local.get(['popstg','orstg'], function(result) {
+                if(result.popstg!=undefined){
+                    if(result.popstg){
+                        shadowRootPopup.getElementById('vertical_new').value = result.orstg;
+                    }else{
+                        shadowRootPopup.getElementById('vertical_new').value = 'Lead'; 
+                    }
+                }else{
+                    shadowRootPopup.getElementById('vertical_new').value = 'Lead'; 
+                }
+            });
+
+            chrome.storage.local.get(['popurl','orurl'], function(result) {
+                if(result.popurl!=undefined){
+                    if(result.popurl){
+                        shadowRootPopup.getElementById('url_new').value = (result.orurl!='') ? result.orurl : '';
+                    }else{
+                        shadowRootPopup.getElementById('url_new').value = '';
+                    }
+                }else{
+                    shadowRootPopup.getElementById('url_new').value = url_new;
+                }
+            });
+            chrome.storage.local.get(['popdesc','ordesc'], function(result) {
+                if(result.popdesc!=undefined){
+                    if(result.popdesc){
+                        shadowRootPopup.getElementById('desc_new').value = (result.ordesc!='') ? result.ordesc : '';
+                    }else{
+                        shadowRootPopup.getElementById('desc_new').value = '';
+                    }
+                }
+            });
+            chrome.storage.local.get(['popstat','orstat'], function(result) {
+                if(result.popstat!=undefined){
+                    if(result.popstat){
+                        shadowRootPopup.getElementById('desc_new').value = (result.orstat!='') ? result.orstat : '';
+                    }else{
+                        shadowRootPopup.getElementById('desc_new').value = '';
+                    }
+                }
+            });
+            chrome.storage.local.get(['popsrc','orsrc'], function(result) {
+                if(result.popstat!=undefined){
+                    if(result.popstat){
+                        shadowRootPopup.getElementById('source_new').value = (result.orsrc!='') ? result.orsrc : (ceo_linkedin == null ? '' : window.location.href);
+                    }else{
+                        shadowRootPopup.getElementById('source_new').value = '';
+                    }
+                }
+            });
+
+            // shadowRootPopup.getElementById('source_new').value = ceo_linkedin == null ? '' : window.location.href;
             
             shadowRootPopup.getElementById('btn_add').onclick = function(){
                 this.innerHTML = `

@@ -153,10 +153,98 @@ function GMassReady(){
         close_a.onclick = backToHome;
         if(email!=null){
             shadowRootPopup.getElementById('ceo_email_new').value = email;
+
             var url_new = email.substring(email.lastIndexOf("@") +1);
-            shadowRootPopup.getElementById('startup_name_new').value = url_new.split('.')[0];
-            shadowRootPopup.getElementById('url_new').value = url_new;
+            
+            chrome.storage.local.get(['popsn','orsn'], function(result) {
+                if(result.popsn!=undefined){
+                    if(result.popsn){
+                        shadowRootPopup.getElementById('startup_name_new').value = (result.orsn!='') ? result.orsn : url_new.split('.')[0];
+                    }else{
+                        shadowRootPopup.getElementById('startup_name_new').value = ''; 
+                    }
+                }else{
+                    shadowRootPopup.getElementById('startup_name_new').value = url_new.split('.')[0]; 
+                }
+            });
+
+            chrome.storage.local.get(['poplead','orlead'], function(result) {
+                if(result.poplead!=undefined){
+                    if(result.poplead){
+                        shadowRootPopup.getElementById('lead_new').value = result.orlead;
+                    }else{
+                        shadowRootPopup.getElementById('lead_new').value = 'Alex'; 
+                    }
+                }else{
+                    shadowRootPopup.getElementById('lead_new').value = 'Alex'; 
+                }
+            });
+
+            chrome.storage.local.get(['popver','orver'], function(result) {
+                if(result.popver!=undefined){
+                    if(result.popver){
+                        shadowRootPopup.getElementById('vertical_new').value = result.orver;
+                    }else{
+                        shadowRootPopup.getElementById('vertical_new').value = 'Supply Chain'; 
+                    }
+                }else{
+                    shadowRootPopup.getElementById('vertical_new').value = 'Supply Chain'; 
+                }
+            });
+
+            chrome.storage.local.get(['popstg','orstg'], function(result) {
+                if(result.popstg!=undefined){
+                    if(result.popstg){
+                        shadowRootPopup.getElementById('vertical_new').value = result.orstg;
+                    }else{
+                        shadowRootPopup.getElementById('vertical_new').value = 'Lead'; 
+                    }
+                }else{
+                    shadowRootPopup.getElementById('vertical_new').value = 'Lead'; 
+                }
+            });
+
+            chrome.storage.local.get(['popurl','orurl'], function(result) {
+                if(result.popurl!=undefined){
+                    if(result.popurl){
+                        shadowRootPopup.getElementById('url_new').value = (result.orurl!='') ? result.orurl : url_new;
+                    }else{
+                        shadowRootPopup.getElementById('url_new').value = '';
+                    }
+                }else{
+                    shadowRootPopup.getElementById('url_new').value = url_new;
+                }
+            });
+
+            // shadowRootPopup.getElementById('url_new').value = url_new;
             // shadowRootPopup.getElementById('source_new').value = window.location.href;
+            chrome.storage.local.get(['popdesc','ordesc'], function(result) {
+                if(result.popdesc!=undefined){
+                    if(result.popdesc){
+                        shadowRootPopup.getElementById('desc_new').value = (result.ordesc!='') ? result.ordesc : '';
+                    }else{
+                        shadowRootPopup.getElementById('desc_new').value = '';
+                    }
+                }
+            });
+            chrome.storage.local.get(['popstat','orstat'], function(result) {
+                if(result.popstat!=undefined){
+                    if(result.popstat){
+                        shadowRootPopup.getElementById('desc_new').value = (result.orstat!='') ? result.orstat : '';
+                    }else{
+                        shadowRootPopup.getElementById('desc_new').value = '';
+                    }
+                }
+            });
+            chrome.storage.local.get(['popsrc','orsrc'], function(result) {
+                if(result.popstat!=undefined){
+                    if(result.popstat){
+                        shadowRootPopup.getElementById('source_new').value = (result.orsrc!='') ? result.orsrc : window.location.href;
+                    }else{
+                        shadowRootPopup.getElementById('source_new').value = '';
+                    }
+                }
+            });
         }else{
             shadowRootPopup.getElementById('ceo_email_new').value = '';
             shadowRootPopup.getElementById('startup_name_new').value = '';

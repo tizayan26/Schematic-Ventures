@@ -315,7 +315,7 @@ function loadPopup() {
                 <div class="form-group">
                     <label class="form-text">Vertical</label>
                     <!--input type="text" class="form-control" id="vertical_new" value="Supply Chain" placeholder="Enter Vertical"-->
-                    <select class="form-select" " id="vertical_new">
+                    <select class="form-select" id="vertical_new">
                     <option value="Supply Chain" selected>Supply Chain</option>
                     <option value="Transportation">Transportation</option>
                     <option value="Manufacturing">Manufacturing</option>
