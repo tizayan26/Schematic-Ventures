@@ -101,12 +101,8 @@ function init(){
                             "Lead": lead_arr,
                             "URL": shadowRootPopup.getElementById('url').value,
                             "CEO LinkedIn": shadowRootPopup.getElementById('ceo_linkedin').value,
-                            "Status": "",
-                            "Sourced By": {
-                              "id": "usryeWEW8DpNhtoMn",
-                              "email": "alexey@schematicventures.com",
-                              "name": "Alex Freed"
-                            },
+                            "Status": shadowRootPopup.getElementById('status').value,
+                            "Sourced By": JSON.parse(shadowRootPopup.getElementById('source_by').value),
                             "CEO Email": shadowRootPopup.getElementById('ceo_email').value,
                             "Description": shadowRootPopup.getElementById('desc').value,
                             "Startup Name": shadowRootPopup.getElementById('startup_name').value
@@ -176,6 +172,7 @@ function init(){
                 shadowRootPopup.getElementById('startup_name_new').value = '';
                 shadowRootPopup.getElementById('url_new').value = '';
                 shadowRootPopup.getElementById('source_new').value = '';
+                shadowRootPopup.getElementById('status_new').value = '';
             }
           
             shadowRootPopup.getElementById('btn_add').onclick = function(){
@@ -197,14 +194,14 @@ function init(){
                         "URL": shadowRootPopup.getElementById('url_new').value,
                         "Description": shadowRootPopup.getElementById('desc_new').value,
                         "CEO LinkedIn": shadowRootPopup.getElementById('ceo_linkedin_new').value,
-                        "Status": "",
-                        "Sourced By": {
+                        "Status": shadowRootPopup.getElementById('status_new').value,
+                        /*"Sourced By": {
                           "id": "usryeWEW8DpNhtoMn",
                           "email": "alexey@schematicventures.com",
                           "name": "Alex Freed"
-                        },
+                        },*/
+                        "Sourced By": JSON.parse(shadowRootPopup.getElementById('source_by_new').value),
                         "CEO Email": shadowRootPopup.getElementById('ceo_email_new').value,
-                        "Description": "",
                         "Startup Name": shadowRootPopup.getElementById('startup_name_new').value,
                       }
                     }];

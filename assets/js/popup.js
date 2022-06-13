@@ -84,58 +84,56 @@ function loadPopup() {
         color: rgb(149 149 149);
     } */
     
+    /* The Close Button */
+    .close {
+    color: #aaa;
+    font-size: 25px;
+    font-weight: bold;
+    position: relative;
+    left: 95%;
+    }
     
-      
-      /* The Close Button */
-      .close {
-        color: #aaa;
-        font-size: 25px;
-        font-weight: bold;
-        position: relative;
-        left: 95%;
-      }
-      
-      .close:hover,
-      .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-      }
+    .close:hover,
+    .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    }
+
+    h4{
+        font-size: 20px;
+        display: inline;
+    }
+    .text-muted{
+        font-size:10px;
+    }
     
-      h4{
-          font-size: 20px;
-          display: inline;
-      }
-      .text-muted{
-          font-size:10px;
-      }
-      
-      .suggestion-links{
-          list-style: none;
-      }
-      #btn_add,#btn_update{
-          margin-top: 10px;
-          font-size: 12px!important;
-          padding: 8px 12px!important;
-          border-radius: 4px!important;
-      }
-      .btn-primary{
-        background-color: #D9EDFF;
-        border: none;
-        color: #007DED!important;
-        width:100%;
-        text-align: initial;
-      }
-      .btn-primary:hover{
-        background-color: rgba(171,214,253,90%)
-      }
-      .btn-icon{
-        float: right;
-      }
-      .form-control,.form-select { font-size: 14px;}
-      h5{
-          font-size: 1.05rem;
-      }
+    .suggestion-links{
+        list-style: none;
+    }
+    #btn_add,#btn_update{
+        margin-top: 10px;
+        font-size: 12px!important;
+        padding: 8px 12px!important;
+        border-radius: 4px!important;
+    }
+    .btn-primary{
+    background-color: #D9EDFF;
+    border: none;
+    color: #007DED!important;
+    width:100%;
+    text-align: initial;
+    }
+    .btn-primary:hover{
+    background-color: rgba(171,214,253,90%)
+    }
+    .btn-icon{
+    float: right;
+    }
+    .form-control,.form-select { font-size: 14px;}
+    h5{
+        font-size: 1.05rem;
+    }
     .blue-logo-bar{
         border: 2px solid #007DED;
         position: relative;
@@ -378,9 +376,19 @@ function loadPopup() {
                     <!--small class="form-text text-muted">CEO LinkedIn</small-->
                 </div>
                 <div class="form-group">
+                    <label class="form-text">Status</label>
+                    <input type="text" class="form-control" id="status_new" placeholder="Enter Status">
+                </div>
+                <div class="form-group">
                     <label class="form-text">Source</label>
                     <input type="text" class="form-control" id="source_new" placeholder="Enter Source">
                     <!--small class="form-text text-muted">Source</small-->
+                </div>
+                <div class="form-group">
+                <label class="form-text">Source By</label>
+                <select class="form-select" id="source_by_new">
+                    <option value="${JSON.stringify({"id": "usryeWEW8DpNhtoMn","email": "alexey@schematicventures.com","name": "Alex Freed"})}">Alex Freed</option>
+                </select>
                 </div>
                 <div class="form-group">
                 <label class="form-text">Attachment</label><br>
@@ -489,9 +497,19 @@ function loadPopup() {
                     <!--small class="form-text text-muted">CEO LinkedIn</small-->
                 </div>
                 <div class="form-group">
+                    <label class="form-text">Status</label>
+                    <input type="text" class="form-control" id="status" placeholder="Enter Status">
+                </div>
+                <div class="form-group">
                     <label class="form-text">Source</label>
                     <input type="text" class="form-control" id="source" placeholder="Enter Source">
                     <!--small class="form-text text-muted">Source</small-->
+                </div>
+                <div class="form-group">
+                <label class="form-text">Source By</label>
+                <select class="form-select" id="source_by">
+                    <option value="${JSON.stringify({"id": "usryeWEW8DpNhtoMn","email": "alexey@schematicventures.com","name": "Alex Freed"})}">Alex Freed</option>
+                </select>
                 </div>
                 <div class="form-group">
                 <label class="form-text">Attachment</label><br>
