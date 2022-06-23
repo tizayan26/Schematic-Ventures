@@ -1,6 +1,3 @@
-const Airtable = require('airtable');
-const base = new Airtable({apiKey: API_KEY}).base(BASE);
-
 if (document.readyState === "complete"){
     GMassReady();
 }
@@ -71,10 +68,8 @@ function GMassReady(){
             if(record1.get('Vertical') !== undefined)
             shadowRootPopup.getElementById('vertical').value =  record1.get('Vertical');
             if(record1.get('Stage')!==undefined){
-                // shadowRootPopup.getElementById('stage').querySelector(`option[value=${record1.get('Stage')}]`).selected = 'selected';
                 shadowRootPopup.getElementById('stage').value = record1.get('Stage');
             }else{
-                // shadowRootPopup.getElementById('stage').querySelector(`option[value=Lead]`).selected = 'selected';
                 shadowRootPopup.getElementById('stage').value = 'Lead';
             }
             if(record1.get('Description') !== undefined)
@@ -107,11 +102,6 @@ function GMassReady(){
                         "CEO LinkedIn": shadowRootPopup.getElementById('ceo_linkedin').value,
                         "Status": shadowRootPopup.getElementById('status').value,
                         "Sourced By": JSON.parse(shadowRootPopup.getElementById('source_by').value),
-                        /*"Sourced By": {
-                          "id": "usryeWEW8DpNhtoMn",
-                          "email": "alexey@schematicventures.com",
-                          "name": "Alex Freed"
-                        },*/
                         "CEO Email": shadowRootPopup.getElementById('ceo_email').value,
                         "Startup Name": shadowRootPopup.getElementById('startup_name').value
                       }
@@ -216,8 +206,6 @@ function GMassReady(){
                 }
             });
 
-            // shadowRootPopup.getElementById('url_new').value = url_new;
-            // shadowRootPopup.getElementById('source_new').value = window.location.href;
             chrome.storage.local.get(['popdesc','ordesc'], function(result) {
                 if(result.popdesc!=undefined){
                     if(result.popdesc){
@@ -273,11 +261,6 @@ function GMassReady(){
                     "CEO LinkedIn": shadowRootPopup.getElementById('ceo_linkedin_new').value,
                     "Status": shadowRootPopup.getElementById('status_new').value,
                     "Sourced By": JSON.parse(shadowRootPopup.getElementById('source_by_new').value),
-                    /*"Sourced By": {
-                    "id": "usryeWEW8DpNhtoMn",
-                    "email": "alexey@schematicventures.com",
-                    "name": "Alex Freed"
-                    },*/
                     "CEO Email": shadowRootPopup.getElementById('ceo_email_new').value,
                     "Startup Name": shadowRootPopup.getElementById('startup_name_new').value
                 }
@@ -306,19 +289,15 @@ function GMassReady(){
         }
     }
 
-    // if(location.href == "https://mail.google.com/mail/u/1/#inbox"){
         var nodes = document.querySelectorAll('tr[jscontroller=ZdOxDb');
         nodes.forEach((currentNode) => {
-       
            currentNode.addEventListener("click", function(){
             if (!clicked) {
                    clicked = true;
                    home_content.style.display = "block";
                    edit_content.style.display = "none";
                    entry_content.style.display = "none";
-                  
-                 
-      
+                        
                    msg.style.display = 'block';
                    msg.innerHTML = `
                    <div class="text-center">
@@ -339,15 +318,17 @@ function GMassReady(){
    
                        var emails = extractEmails(email_body);
                        console.log(emails);
+                    if(emails!=null){
                        emails = getUnique(emails);
                        console.log(getUnique(emails));
                        var formula = `OR(`;
                        emails.forEach((email,currentIndex) => {
-                           formula += `{CEO Email}='${email}'`;
-                          
-                           if(currentIndex!= emails.length-1){
-                               formula += `,`;
-                           }
+                            var url_new = email.substring(email.lastIndexOf("@") +1);
+                            formula += `SEARCH(LOWER('${url_new}'), LOWER({URL})) > 0,`;
+                            formula += `{CEO Email}='${email}'`;
+                            if(currentIndex!= emails.length-1){
+                                formula += `,`;
+                            }
                        })
                        formula += `)`;
                        console.log(formula);
@@ -371,7 +352,6 @@ function GMassReady(){
                                records.forEach((record) => {
                                    var li = document.createElement('li');
                                    li.className = 'edit';
-                                   // var span = document.createElement('span');
                                    var icon = `<span class="icon"><svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                    <path d="M14.4001 10.6578H13.3235V13.9234H1.15846V1.75836H4.424V0.681747H0.0819092V14.9999H14.4L14.4001 10.6578Z" fill="#007DED"/>
                                    <path d="M5.14174 7.177L4.06512 11.0167L7.90482 9.94008L15.0818 2.78102L12.3008 3.05176e-05L5.14174 7.177ZM7.34864 8.98916L5.60821 9.47364L6.09269 7.73322L10.4168 3.40908L11.6728 4.66502L7.34864 8.98916ZM12.4264 3.91143L11.1704 2.65549L12.3008 1.52508L13.5568 2.78102L12.4264 3.91143Z" fill="#007DED"/>
@@ -380,20 +360,15 @@ function GMassReady(){
                                    li.onclick = function() {
                                        updateRecord(record)
                                    }
-                                   // span.textContent = `Match: ${record.get('CEO Email')}`;
-                                   // li.appendChild(span);
                                    result.appendChild(li);
-                                   // li.className = 'line';
-                                   // result.appendChild(li);
-               
                                    console.log('Retrieved', record.get('CEO Email'));
                                    emails.remove(record.get('CEO Email'));
                                 
                                });
+                               fetchNextPage();
                                emails.forEach((email) => {
                                 var li = document.createElement('li');
                                 li.className = 'add';
-                                // var span = document.createElement('span');
                                 var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
                                 </svg></span>`;
@@ -401,27 +376,14 @@ function GMassReady(){
                                 li.onclick = function(){
                                  addRecord(email);
                                 }
-                                // span.textContent = email;
-                                // li.appendChild(span);
                                 result.appendChild(li);
-                                var li = document.createElement('li');
-                                var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
-                                </svg></span>`;
-                                li.innerHTML = 'Blank Record' + icon;
-                                li.className = 'add';
-                                li.onclick = function(){
-                                    addRecord(null);
-                                }
-                                result.appendChild(li);
-                            });
+                                });
                            }else{
                                msg.style.display = 'block';
                                msg.innerText = 'no existing matches were found!';
                                emails.forEach((email) => {
                                    var li = document.createElement('li');
                                    li.className = 'add';
-                                   // var span = document.createElement('span');
                                    var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                    <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
                                    </svg></span>`;
@@ -429,27 +391,24 @@ function GMassReady(){
                                    li.onclick = function(){
                                     addRecord(email);
                                    }
-                                   // span.textContent = email;
-                                   // li.appendChild(span);
                                    result.appendChild(li);
                              
                                });
-                               var li = document.createElement('li');
-                               var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                               <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
-                               </svg></span>`;
-                               li.innerHTML = 'Blank Record' + icon;
-                               li.className = 'add';
-                               li.onclick = function(){
-                                   addRecord(null);
-                               }
-                               result.appendChild(li);
                            }
-                           fetchNextPage();
-                   
+                           var li = document.createElement('li');
+                           var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
+                           </svg></span>`;
+                           li.innerHTML = 'Blank Record' + icon;
+                           li.className = 'add';
+                           li.onclick = function(){
+                               addRecord(null);
+                           }
+                           result.appendChild(li);
                        }, function done(err) {
                            if (err) { console.error(err); return; }
                        });
+                    }
                      
                        clicked = false;
                    },3000);
@@ -457,7 +416,6 @@ function GMassReady(){
                });
            
         });
-    // }
 
     let lastUrl = location.href; 
     new MutationObserver(() => {
@@ -479,14 +437,14 @@ function GMassReady(){
         console.log('URL changed!', location.href);
         result.innerHTML = '';
         if(location.href != 'https://mail.google.com/mail/u/1/#inbox'){
-            // setTimeout(function(){
-            // var email_body = document.querySelector('.ajA').innerHTML;
             var email_body = document.querySelector('.gJ').innerHTML;
             var emails = extractEmails(email_body);
             emails = getUnique(emails);
             console.log(getUnique(emails));
             var formula = `OR(`;
             emails.forEach((email,currentIndex) => {
+                var url_new = email.substring(email.lastIndexOf("@") +1);
+                formula += `SEARCH(LOWER('${url_new}'), LOWER({URL})) > 0,`;
                 formula += `{CEO Email}='${email}'`;
             
                 if(currentIndex!= emails.length-1){
@@ -512,7 +470,6 @@ function GMassReady(){
                     records.forEach((record) => {
                         var li = document.createElement('li');
                         li.className = 'edit';
-                        // var span = document.createElement('span');
                         var icon = `<span class="icon"><svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M14.4001 10.6578H13.3235V13.9234H1.15846V1.75836H4.424V0.681747H0.0819092V14.9999H14.4L14.4001 10.6578Z" fill="#007DED"/>
                         <path d="M5.14174 7.177L4.06512 11.0167L7.90482 9.94008L15.0818 2.78102L12.3008 3.05176e-05L5.14174 7.177ZM7.34864 8.98916L5.60821 9.47364L6.09269 7.73322L10.4168 3.40908L11.6728 4.66502L7.34864 8.98916ZM12.4264 3.91143L11.1704 2.65549L12.3008 1.52508L13.5568 2.78102L12.4264 3.91143Z" fill="#007DED"/>
@@ -521,30 +478,22 @@ function GMassReady(){
                         li.onclick = function() {
                             updateRecord(record)
                         }
-                        // span.textContent = `Match: ${record.get('CEO Email')}`;
-                        // li.appendChild(span);
                         result.appendChild(li);
-                        // li.className = 'line';
-                        // result.appendChild(li);
-    
                         console.log('Retrieved', record.get('CEO Email'));
                         emails.remove(record.get('CEO Email'));
-                        emails.forEach((email) => {
-                            var li = document.createElement('li');
-                            li.className = 'add';
-                            // var span = document.createElement('span');
-                            var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
-                            </svg></span>`;
-                            li.innerHTML = email+icon;
-                            li.onclick = function(){
-                              addRecord(email);
-                            }
-                            // span.textContent = email;
-                            // li.appendChild(span);
-                            result.appendChild(li);
-                    
-                        });
+                    });
+                    fetchNextPage();
+                    emails.forEach((email) => {
+                        var li = document.createElement('li');
+                        li.className = 'add';
+                        var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
+                        </svg></span>`;
+                        li.innerHTML = email+icon;
+                        li.onclick = function(){
+                          addRecord(email);
+                        }
+                        result.appendChild(li);
                     });
                 }else{
                     msg.style.display = 'block';
@@ -552,7 +501,6 @@ function GMassReady(){
                     emails.forEach((email) => {
                         var li = document.createElement('li');
                         li.className = 'add';
-                        // var span = document.createElement('span');
                         var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
                         </svg></span>`;
@@ -560,15 +508,9 @@ function GMassReady(){
                         li.onclick = function(){
                             addRecord(email);
                         }
-                        // span.textContent = email;
-                        // li.appendChild(span);
                         result.appendChild(li);
-                
                     });
                 }
-            
-                fetchNextPage();
-        
             }, function done(err) {
                 if (err) { console.error(err); return; }
             });
@@ -582,7 +524,6 @@ function GMassReady(){
                 addRecord(null);
             }
             result.appendChild(li);
-            // },5000);
         }      
     }
 
@@ -592,17 +533,13 @@ function GMassReady(){
             while (result.hasChildNodes()) {
                 result.removeChild(result.firstChild);
             }
-            // formula = `FIND('${keyword}',{Startup Name})`;
             formula = `SEARCH(LOWER('${keyword}'), LOWER({Startup Name})) > 0`;
-            // formula = `REGEX_MATCH({Startup Name},'${keyword}')`;
-        
             console.log(formula);
         
             base('Schematic_Pipeline').select({
                 filterByFormula : formula,
                 view: "Main View"
             })
-        
             .eachPage(function page(records, fetchNextPage) {
                 if(records.length>0){
                     chrome.storage.local.get(['gmatch'], function(result) {
@@ -632,22 +569,14 @@ function GMassReady(){
                         console.log('Retrieved', record.get('Startup Name'));
                     
                     });
-                  
+                    fetchNextPage();
                 }else{
                     msg.innerText = 'No Matching Records Found';
                 }
-                fetchNextPage();
-                
             }, function done(err) {
                 if (err) { console.error(err); return; }
             });
         }
-        // else if(keyword.split('').length==0){
-        //     while (result.hasChildNodes()) {
-        //         result.removeChild(result.firstChild);
-        //     }
-        //     init();
-        // }
     }
   
     $(shadowRootPopup.getElementById('search')).keyup(function() {

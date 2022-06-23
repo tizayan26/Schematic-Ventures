@@ -1,6 +1,6 @@
 {
     "name": "Schematic Ventures",
-    "version": "1.4",
+    "version": "1.4.1",
     "description": "Schematic Ventures CRM Extension",
     "author": "Nasirul Akbar Khan",
     
@@ -33,7 +33,7 @@
     "content_scripts": [ 
     {
       "all_frames": false,
-      "js": ["assets/js/libs/jquery.js","assets/js/libs/filestack.min.js","assets/js/common.js","assets/js/libs/airtable.js", "assets/js/popup.js", "assets/js/content.js"],
+      "js": ["assets/js/libs/jquery.js","assets/js/libs/filestack.min.js", "assets/js/libs/airtable.js", "assets/js/common.js", "assets/js/popup.js", "assets/js/content.js"],
       "matches": ["<all_urls>"],
       "run_at": "document_end"
     },

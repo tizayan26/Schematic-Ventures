@@ -18,14 +18,11 @@ var file_obj = null;
 let extractEmails = (text) =>
 {
     return text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
-    // return text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-][^?!(jpg|jpeg|png|gif|doc|docx|psd|eps)]+)/gi);
-    // var arr = text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
 }
 
 
 let getUnique = (array) => {
     var uniqueArray = [];
-    
     // Loop through array values
     for(i=0; i < array.length; i++){
         var domain = array[i].split('@')[1];
@@ -79,8 +76,6 @@ let checkDropbox = (name) => {
             }
         });
     });
-   
-  
 }
 
 Array.prototype.remove = function() {
@@ -93,3 +88,6 @@ Array.prototype.remove = function() {
     }
     return this;
 };
+
+const Airtable = require('airtable');
+const base = new Airtable({apiKey: API_KEY}).base(BASE);

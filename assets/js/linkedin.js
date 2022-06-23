@@ -11,8 +11,6 @@ $(document).ready(function(){
       function fileUpload(event){
           const files = event.target.files[0];
           const token = {};
- 
-      
           client.upload(files, { onProgress }, {}, token)
             .then(res => {
               file_obj = [
@@ -28,8 +26,6 @@ $(document).ready(function(){
       }
 
     setTimeout(function(){
-        const Airtable = require('airtable');
-        const base = new Airtable({apiKey: API_KEY}).base(BASE);
         var edit_content = shadowRootPopup.getElementById('edit_content');
         var entry_content = shadowRootPopup.getElementById('entry_content')
         var home_content = shadowRootPopup.getElementById('home_content');
@@ -37,7 +33,6 @@ $(document).ready(function(){
         var close_e = shadowRootPopup.getElementById('close_edit');
         var msg = shadowRootPopup.getElementById('msg');
         
-
         function getLinkedInList(ceo_linkedin){
             result.innerHTML = '';
             msg.style.display = 'block';
@@ -68,9 +63,7 @@ $(document).ready(function(){
                         msg.innerHTML = '';
                         msg.style.display = 'none';
                         records.forEach(function(record) {
-                            // try {
                             var li = document.createElement('li');
-                            // var span = document.createElement('span');
                             var icon = `<span class="icon"><svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M14.4001 10.6578H13.3235V13.9234H1.15846V1.75836H4.424V0.681747H0.0819092V14.9999H14.4L14.4001 10.6578Z" fill="#007DED"/>
                             <path d="M5.14174 7.177L4.06512 11.0167L7.90482 9.94008L15.0818 2.78102L12.3008 3.05176e-05L5.14174 7.177ZM7.34864 8.98916L5.60821 9.47364L6.09269 7.73322L10.4168 3.40908L11.6728 4.66502L7.34864 8.98916ZM12.4264 3.91143L11.1704 2.65549L12.3008 1.52508L13.5568 2.78102L12.4264 3.91143Z" fill="#007DED"/>
@@ -81,18 +74,14 @@ $(document).ready(function(){
                             li.onclick = function() {
                                 updateRecord(record);
                             }
-                            // span.textContent = `Match: ${record.get('CEO LinkedIn')}`;
-                            // li.appendChild(span);
                             result.appendChild(li);
                             console.log('Retrieved', record.get('CEO LinkedIn'));
-                        // } catch(e){ console.log('error inside eachPage => ',e)}
                         });
-                
+                        fetchNextPage();
                     }else{
                         msg.style.display = 'block';
                         msg.innerText = 'no existing linkedin matches were found!';
                         var li = document.createElement('li');
-                        // var span = document.createElement('span');
                         var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
                         </svg></span>`;
@@ -101,12 +90,9 @@ $(document).ready(function(){
                         li.onclick = function(){
                             addRecord(ceo_linkedin);
                         }
-                        // span.textContent = ceo_linkedin;
-                        // li.appendChild(span);
                         result.appendChild(li);
                     }
                     
-                    fetchNextPage();
             
                 }, function done(err) {
                     if (err) { console.error(err); return; }
@@ -154,10 +140,8 @@ $(document).ready(function(){
                 if(record1.get('Vertical') !== undefined)
                 shadowRootPopup.getElementById('vertical').value =  record1.get('Vertical');
                 if(record1.get('Stage')!==undefined){
-                    // shadowRootPopup.getElementById('stage').querySelector(`option[value=${record1.get('Stage')}]`).selected = 'selected';
                     shadowRootPopup.getElementById('stage').value = record1.get('Stage');
                 }else{
-                    // shadowRootPopup.getElementById('stage').querySelector(`option[value=Lead]`).selected = 'selected';
                     shadowRootPopup.getElementById('stage').value = 'Lead';
                 }
                 if(record1.get('Description') !== undefined)
@@ -190,11 +174,6 @@ $(document).ready(function(){
                             "CEO LinkedIn": shadowRootPopup.getElementById('ceo_linkedin').value,
                             "Status": shadowRootPopup.getElementById('status').value,
                             "Sourced By": JSON.parse(shadowRootPopup.getElementById('source_by').value),
-                            /*"Sourced By": {
-                              "id": "usryeWEW8DpNhtoMn",
-                              "email": "alexey@schematicventures.com",
-                              "name": "Alex Freed"
-                            },*/
                             "CEO Email": shadowRootPopup.getElementById('ceo_email').value,
                             "Startup Name": shadowRootPopup.getElementById('startup_name').value
                           }
@@ -232,10 +211,6 @@ $(document).ready(function(){
             home_content.style.display = "none";
             edit_content.style.display = "none";
             close_a.onclick = backToHome;
-            // shadowRootPopup.getElementById('ceo_email_new').value =  email;
-            // var url_new = email.substring(email.lastIndexOf("@") +1);
-            // shadowRootPopup.getElementById('startup_name_new').value = url_new;
-            // shadowRootPopup.getElementById('url_new').value = url_new;
             shadowRootPopup.getElementById('ceo_linkedin_new').value = ceo_linkedin == null ? '' : ceo_linkedin;
 
             chrome.storage.local.get(['popsn','orsn'], function(result) {
@@ -324,8 +299,6 @@ $(document).ready(function(){
                 }
             });
 
-            // shadowRootPopup.getElementById('source_new').value = ceo_linkedin == null ? '' : window.location.href;
-            
             shadowRootPopup.getElementById('btn_add').onclick = function(){
                 this.innerHTML = `
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -347,11 +320,6 @@ $(document).ready(function(){
                         "CEO LinkedIn": shadowRootPopup.getElementById('ceo_linkedin_new').value,
                         "Status": shadowRootPopup.getElementById('status_new').value,
                         "Sourced By": JSON.parse(shadowRootPopup.getElementById('source_by_new').value),
-                        /*"Sourced By": {
-                            "id": "usryeWEW8DpNhtoMn",
-                            "email": "alexey@schematicventures.com",
-                            "name": "Alex Freed"
-                        },*/
                         "CEO Email": shadowRootPopup.getElementById('ceo_email_new').value,
                         "Description": "",
                         "Startup Name": shadowRootPopup.getElementById('startup_name_new').value,
@@ -380,7 +348,6 @@ $(document).ready(function(){
             }
         }
 
-        
         getLinkedInList(ceo_linkedin);
 
         let lastUrl = location.href; 
@@ -402,17 +369,12 @@ $(document).ready(function(){
                 while (result.hasChildNodes()) {
                     result.removeChild(result.firstChild);
                 }
-                // formula = `FIND('${keyword}',{Startup Name})`;
                 formula = `SEARCH(LOWER('${keyword}'), LOWER({Startup Name})) > 0`;
-                // formula = `REGEX_MATCH({Startup Name},'${keyword}')`;
-            
                 console.log(formula);
-            
                 base('Schematic_Pipeline').select({
                     filterByFormula : formula,
                     view: "Main View"
                 })
-            
                 .eachPage(function page(records, fetchNextPage) {
                     if(records.length>0){
                         chrome.storage.local.get(['lmatch'], function(result) {
@@ -442,11 +404,11 @@ $(document).ready(function(){
                             console.log('Retrieved', record.get('Startup Name'));
                         
                         });
-                      
+                        fetchNextPage();
                     }else{
                         msg.innerText = 'No Matching Records Found';
                     }
-                    fetchNextPage();
+                  
                     
                 }, function done(err) {
                     if (err) { console.error(err); return; }
@@ -463,6 +425,5 @@ $(document).ready(function(){
         $(shadowRootPopup.getElementById('search')).keyup(function() {
             searchResult(this.value);
         });
-     
     },3000);
 })
