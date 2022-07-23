@@ -127,10 +127,10 @@ function GMassReady(){
                         shadowRootPopup.getElementById('btn_update').disabled = false;
                         shadowRootPopup.getElementById('update-msg').innerText = 'Updated Successfully!';
                     }
-                    records.forEach((record) => {
-                        checkDropbox(record.get('ID')+'-'+record.get('Startup Name'));
-                      console.log(record.get('Lead'));
-                    });
+                    // records.forEach((record) => {
+                    //     checkDropbox(record.get('ID')+'-'+record.get('Startup Name'));
+                    //   console.log(record.get('Lead'));
+                    // });
                   })
             }
         });
@@ -280,7 +280,7 @@ function GMassReady(){
                         shadowRootPopup.getElementById('add-msg').innerHTML = 'Added Successfully!';
                         records.forEach(function (record) {  
                             console.log(record.getId());
-                            checkDropbox(record.get('ID')+'-'+record.get('Startup Name'));
+                            // checkDropbox(record.get('ID')+'-'+record.get('Startup Name'));
                             updateRecord(record);
                         });
                     }
@@ -288,10 +288,13 @@ function GMassReady(){
                 });
         }
     }
-
+        var tab_index = 0;
         var nodes = document.querySelectorAll('tr[jscontroller=ZdOxDb');
         nodes.forEach((currentNode) => {
            currentNode.addEventListener("click", function(){
+            setTimeout(function(){
+                shadowRootPopup.getElementById('search').focus();
+            },5000)
             if (!clicked) {
                    clicked = true;
                    home_content.style.display = "block";
@@ -351,6 +354,7 @@ function GMassReady(){
                               }
                                records.forEach((record) => {
                                    var li = document.createElement('li');
+                                   li.tabIndex = tab_index;
                                    li.className = 'edit';
                                    var icon = `<span class="icon"><svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                    <path d="M14.4001 10.6578H13.3235V13.9234H1.15846V1.75836H4.424V0.681747H0.0819092V14.9999H14.4L14.4001 10.6578Z" fill="#007DED"/>
@@ -368,6 +372,7 @@ function GMassReady(){
                                fetchNextPage();
                                emails.forEach((email) => {
                                 var li = document.createElement('li');
+                                li.tabIndex = tab_index;
                                 li.className = 'add';
                                 var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
@@ -383,6 +388,7 @@ function GMassReady(){
                                msg.innerText = 'no existing matches were found!';
                                emails.forEach((email) => {
                                    var li = document.createElement('li');
+                                   li.tabIndex = tab_index;
                                    li.className = 'add';
                                    var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                    <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
@@ -396,6 +402,7 @@ function GMassReady(){
                                });
                            }
                            var li = document.createElement('li');
+                           li.tabIndex = tab_index;
                            var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                            <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
                            </svg></span>`;
@@ -426,7 +433,10 @@ function GMassReady(){
     }
     }).observe(document, {subtree: true, childList: true});
 
-    function onUrlChange() {
+    function onUrlChange(){
+        setTimeout(function(){
+            shadowRootPopup.getElementById('search').focus();
+        },5000)
         msg.style.display = 'block';
         msg.innerHTML = `
         <div class="text-center">
@@ -469,6 +479,7 @@ function GMassReady(){
                     msg.style.display = 'none';
                     records.forEach((record) => {
                         var li = document.createElement('li');
+                        li.tabIndex = tab_index;
                         li.className = 'edit';
                         var icon = `<span class="icon"><svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M14.4001 10.6578H13.3235V13.9234H1.15846V1.75836H4.424V0.681747H0.0819092V14.9999H14.4L14.4001 10.6578Z" fill="#007DED"/>
@@ -485,6 +496,7 @@ function GMassReady(){
                     fetchNextPage();
                     emails.forEach((email) => {
                         var li = document.createElement('li');
+                        li.tabIndex = tab_index;
                         li.className = 'add';
                         var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
@@ -495,11 +507,23 @@ function GMassReady(){
                         }
                         result.appendChild(li);
                     });
+                    var li = document.createElement('li');
+                    li.tabIndex = tab_index;
+                    var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
+                    </svg></span>`;
+                    li.innerHTML = 'Blank Record' + icon;
+                    li.className = 'add';
+                    li.onclick = function(){
+                        addRecord(null);
+                    }
+                    result.appendChild(li);
                 }else{
                     msg.style.display = 'block';
                     msg.innerText = 'no existing matches were found!';
                     emails.forEach((email) => {
                         var li = document.createElement('li');
+                        li.tabIndex = tab_index;
                         li.className = 'add';
                         var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
@@ -510,25 +534,27 @@ function GMassReady(){
                         }
                         result.appendChild(li);
                     });
+                    var li = document.createElement('li');
+                    li.tabIndex = tab_index;
+                    var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
+                    </svg></span>`;
+                    li.innerHTML = 'Blank Record' + icon;
+                    li.className = 'add';
+                    li.onclick = function(){
+                        addRecord(null);
+                    }
+                    result.appendChild(li);
                 }
             }, function done(err) {
                 if (err) { console.error(err); return; }
             });
-            var li = document.createElement('li');
-            var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
-            </svg></span>`;
-            li.innerHTML = 'Blank Record' + icon;
-            li.className = 'add';
-            li.onclick = function(){
-                addRecord(null);
-            }
-            result.appendChild(li);
         }      
     }
 
 
     let searchResult = (keyword) => {
+        var tab_index = 0;
         if(keyword.split('').length>1){
             while (result.hasChildNodes()) {
                 result.removeChild(result.firstChild);
@@ -554,6 +580,7 @@ function GMassReady(){
                     }
                     records.forEach(function(record) {
                         var li = document.createElement('li');
+                        li.tabIndex = tab_index;
                         li.className = 'edit';
                         var span = document.createElement('span');
                         var icon = `<span class="icon"><svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">

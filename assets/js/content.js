@@ -4,6 +4,9 @@ $(document).ready(function(){
         switch (msg) {
             case "toggle":
                 $('#shadow-wrapper-popup-sv').slideToggle("slow");
+                setTimeout(function(){
+                    shadowRootPopup.getElementById('search').focus();
+                },5000)
                 break;
         }
     });

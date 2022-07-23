@@ -17,7 +17,8 @@ var file_obj = null;
 
 let extractEmails = (text) =>
 {
-    return text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
+    // return text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
+    return text.match(/((?!\S*\.(?:jpg|png|gif|bmp)(?:[\s\n\r]|$))[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
 }
 
 

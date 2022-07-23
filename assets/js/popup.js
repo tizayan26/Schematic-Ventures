@@ -243,10 +243,6 @@ function loadPopup() {
         <div class=" row">
             <div class="col-sm">
                 <div class="form-group">
-                    <label class="form-text">CEO Email</label>
-                    <input type="email" class="form-control" id="ceo_email_new" placeholder="Enter CEO Email">
-                </div>
-                <div class="form-group">
                     <label class="form-text">Startup Name</label>
                     <input type="text" class="form-control" id="startup_name_new" placeholder="Enter company name">
                 </div>
@@ -261,26 +257,26 @@ function loadPopup() {
                 <div class="form-group">
                     <label class="form-text">Vertical</label>
                     <select class="form-select" id="vertical_new">
-                    <option value="Supply Chain" selected>Supply Chain</option>
-                    <option value="Transportation">Transportation</option>
-                    <option value="Manufacturing">Manufacturing</option>
-                    <option value="Ecommerce">Ecommerce</option>
                     <option value="Aerospace">Aerospace</option>
                     <option value="Agriculture">Agriculture</option>
                     <option value="Automotive">Automotive</option>
                     <option value="Construction">Construction</option>
-                    <option value="Infrastructure">Infrastructure</option>
+                    <option value="Ecommerce">Ecommerce</option>
                     <option value="Energy">Energy</option>
                     <option value="Enterprise">Enterprise</option>
                     <option value="Food">Food</option>
+                    <option value="Infrastructure">Infrastructure</option>
                     <option value="Maritime">Maritime</option>
+                    <option value="Manufacturing">Manufacturing</option>
                     <option value="Material Science">Material Science</option>
                     <option value="Mining">Mining</option>
                     <option value="Other">Other</option>
+                    <option value="Procurement">Procurement</option>
                     <option value="Real Estate">Real Estate</option>
                     <option value="Retail">Retail</option>
                     <option value="Robotics">Robotics</option>
-                    <option value="Procurement">Procurement</option>
+                    <option value="Supply Chain" selected>Supply Chain</option>
+                    <option value="Transportation">Transportation</option>
                     </select>
                 </div>
 
@@ -289,18 +285,18 @@ function loadPopup() {
                     <select class="form-select" id="stage_new">
                         <option value="Lead" selected>Lead</option>
                         <option value="Prospecting">Prospecting</option>
+                        <option value="First Meeting - Pending">First Meeting - Pending</option>
+                        <option value="First Meeting - Complete">First Meeting - Complete</option>
+                        <option value="Second Meeting - Pending">Second Meeting - Pending</option>
+                        <option value="Second Meeting - Complete">Second Meeting - Complete</option>
                         <option value="Active">Active</option>
+                        <option value="Dilligence">Dilligence</option>
+                        <option value="Send Pass">Send Pass</option>
+                        <option value="Portfolio">Portfolio</option>
+                        <option value="Future Reconnect">Future Reconnect</option>
                         <option value="No Meeting - Response">No Meeting - Response</option>
                         <option value="No Meeting - No Response">No Meeting - No Response</option>
                         <option value="Passed">Passed</option>
-                        <option value="First Meeting - Pending">First Meeting - Pending</option>
-                        <option value="Second Meeting - Pending">Second Meeting - Pending</option>
-                        <option value="Second Meeting - Complete">Second Meeting - Complete</option>
-                        <option value="Future Reconnect">Future Reconnect</option>
-                        <option value="Dilligence">Dilligence</option>
-                        <option value="Portfolio">Portfolio</option>
-                        <option value="Send Pass">Send Pass</option>
-                        <option value="First Meeting - Complete">First Meeting - Complete</option>
                         <option value=""> </option>
                     </select>
                 </div>
@@ -311,6 +307,10 @@ function loadPopup() {
                 <div class="form-group">
                     <label class="form-text">Description</label>
                     <textarea class="form-control" id="desc_new" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-text">CEO Email</label>
+                    <input type="email" class="form-control" id="ceo_email_new" placeholder="Enter CEO Email">
                 </div>
                 <div class="form-group">
                     <label class="form-text">CEO LinkedIn</label>
@@ -350,10 +350,6 @@ function loadPopup() {
         <div class=" row">
             <div class="col-sm">
                 <div class="form-group">
-                    <label class="form-text">CEO Email</label>
-                    <input type="email" class="form-control" id="ceo_email" placeholder="Enter CEO Email">
-                </div>
-                <div class="form-group">
                     <label class="form-text">Startup Name</label>
                     <input type="text" class="form-control" id="startup_name" placeholder="Enter company name">
                 </div>
@@ -368,26 +364,26 @@ function loadPopup() {
                 <div class="form-group">
                     <label class="form-text">Vertical</label>
                     <select class="form-select" " id="vertical">
-                    <option value="Supply Chain" selected>Supply Chain</option>
-                    <option value="Transportation">Transportation</option>
-                    <option value="Manufacturing">Manufacturing</option>
-                    <option value="Ecommerce">Ecommerce</option>
                     <option value="Aerospace">Aerospace</option>
                     <option value="Agriculture">Agriculture</option>
                     <option value="Automotive">Automotive</option>
                     <option value="Construction">Construction</option>
-                    <option value="Infrastructure">Infrastructure</option>
+                    <option value="Ecommerce">Ecommerce</option>
                     <option value="Energy">Energy</option>
                     <option value="Enterprise">Enterprise</option>
                     <option value="Food">Food</option>
+                    <option value="Infrastructure">Infrastructure</option>
                     <option value="Maritime">Maritime</option>
+                    <option value="Manufacturing">Manufacturing</option>
                     <option value="Material Science">Material Science</option>
                     <option value="Mining">Mining</option>
                     <option value="Other">Other</option>
+                    <option value="Procurement">Procurement</option>
                     <option value="Real Estate">Real Estate</option>
                     <option value="Retail">Retail</option>
                     <option value="Robotics">Robotics</option>
-                    <option value="Procurement">Procurement</option>
+                    <option value="Supply Chain" selected>Supply Chain</option>
+                    <option value="Transportation">Transportation</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -395,18 +391,18 @@ function loadPopup() {
                     <select class="form-select" id="stage">
                         <option value="Lead">Lead</option>
                         <option value="Prospecting">Prospecting</option>
+                        <option value="First Meeting - Pending">First Meeting - Pending</option>
+                        <option value="First Meeting - Complete">First Meeting - Complete</option>
+                        <option value="Second Meeting - Pending">Second Meeting - Pending</option>
+                        <option value="Second Meeting - Complete">Second Meeting - Complete</option>
                         <option value="Active">Active</option>
+                        <option value="Dilligence">Dilligence</option>
+                        <option value="Send Pass">Send Pass</option>
+                        <option value="Portfolio">Portfolio</option>
+                        <option value="Future Reconnect">Future Reconnect</option>
                         <option value="No Meeting - Response">No Meeting - Response</option>
                         <option value="No Meeting - No Response">No Meeting - No Response</option>
                         <option value="Passed">Passed</option>
-                        <option value="First Meeting - Pending">First Meeting - Pending</option>
-                        <option value="Second Meeting - Pending">Second Meeting - Pending</option>
-                        <option value="Second Meeting - Complete">Second Meeting - Complete</option>
-                        <option value="Future Reconnect">Future Reconnect</option>
-                        <option value="Dilligence">Dilligence</option>
-                        <option value="Portfolio">Portfolio</option>
-                        <option value="Send Pass">Send Pass</option>
-                        <option value="First Meeting - Complete">First Meeting - Complete</option>
                         <option value=""> </option>
                     </select>
                 </div>
@@ -417,6 +413,10 @@ function loadPopup() {
                 <div class="form-group">
                     <label class="form-text">Description</label>
                     <textarea class="form-control" id="desc" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-text">CEO Email</label>
+                    <input type="email" class="form-control" id="ceo_email" placeholder="Enter CEO Email">
                 </div>
                 <div class="form-group">
                     <label class="form-text">CEO LinkedIn</label>
