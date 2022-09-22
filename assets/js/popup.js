@@ -199,7 +199,42 @@ function loadPopup() {
     textarea::-webkit-scrollbar-thumb {
         border-radius: 2px;
         background-color: #505050;
-    }`;
+    }
+    .search-box {
+        display: flex;
+        /*margin: 0 0 30px;*/
+        border: 1px solid #BEBEBE;
+        outline: none;
+        padding: 8px 12px
+      }
+      
+    input[type="search"] {
+        border: none;
+        margin: 0;
+        /*padding: 7px 8px;*/
+        font-size: 14px;
+        color:#3A3A3A;
+        border: 1px solid transparent;
+        outline:none;
+        width:90%;
+      }
+    button.btn-search {
+        text-indent: -999px;
+        overflow: hidden;
+        width: 40px;
+        padding: 0;
+        margin: 0;
+        border: 1px solid transparent;
+        border-radius: inherit;
+        background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat center;
+        cursor: pointer;
+        opacity: 0.7;
+      }
+      
+      button.btn-search:hover {
+        opacity: 1;
+      }
+    `;
     head.appendChild(style);
     var body = document.createElement('body');
   
@@ -222,7 +257,9 @@ function loadPopup() {
     <!-- start home -->
     <div id="home_content">
         <div class="row search-section">
-        <input type="text" placeholder="Search By Startup Name" id="search"/>
+        <div class="search-box">
+        <input type="search" placeholder="Search By Startup Name" id="search"/><button id="submit_search" class="btn-search">Search</button>
+        </div>
         </div>
         <div class="row">
             <div class="col-sm">
@@ -240,7 +277,7 @@ function loadPopup() {
     <!-- start entry -->
     <div id="entry_content">
         <span class="close" id="close_add">&times;</span>
-        <div class=" row">
+        <div class="row">
             <div class="col-sm">
                 <div class="form-group">
                     <label class="form-text">Startup Name</label>

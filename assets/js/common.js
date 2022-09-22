@@ -1,6 +1,6 @@
 const shadowWrapper_popup = document.createElement('div');
 shadowWrapper_popup.id = "shadow-wrapper-popup-sv";
-shadowWrapper_popup.style = "position: fixed;top: 10px;right: 0;z-index:99999999;display:none;width:340px;height:100%;overflow:auto;";
+shadowWrapper_popup.style = "position: fixed;top: 10px;right: 0;z-index:99999999;display:none;width:340px;height:100%;overflow:auto;;outline: none;border: none;";
 $('body').prepend($(shadowWrapper_popup))
 const host_popup = document.getElementById('shadow-wrapper-popup-sv');
 const shadowRootPopup = host_popup.attachShadow({
