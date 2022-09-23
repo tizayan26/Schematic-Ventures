@@ -370,7 +370,7 @@ function loadPopup() {
                 <div class="form-group">
                 <label class="form-text">Attachment</label><br>
                 <input class="custom-file-input" id="file_add" type="file" />
-                <div>Progress: <span id="progress_add"></span></div>
+                <div><span id="progress_add"></span></div>
                 </div>
                 <button class="btn btn-primary" id="btn_add">Save Record <span class="icon btn-icon"><svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14.4001 10.6578H13.3235V13.9234H1.15846V1.75836H4.424V0.681747H0.0819092V14.9999H14.4L14.4001 10.6578Z" fill="#007DED"/>
@@ -476,7 +476,7 @@ function loadPopup() {
                 <div class="form-group">
                     <label class="form-text">Attachment</label><br>
                     <input class="custom-file-input" id="file_update" type="file" />
-                    <div>Progress: <span id="progress_update"></span></div>
+                    <div><span id="progress_update"></span></div>
                 </div>
                 <button class="btn btn-primary" id="btn_update">Save Record <span class="icon btn-icon"><svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14.4001 10.6578H13.3235V13.9234H1.15846V1.75836H4.424V0.681747H0.0819092V14.9999H14.4L14.4001 10.6578Z" fill="#007DED"/>

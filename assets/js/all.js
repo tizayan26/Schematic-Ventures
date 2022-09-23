@@ -10,8 +10,19 @@ function init(){
     shadowRootPopup.getElementById('search').focus();
     shadowRootPopup.getElementById('startup_name_new').focus();
     const onProgress = (evt) => {
-        shadowRootPopup.getElementById('progress_add').innerHTML = `${evt.totalPercent}%`;
-        shadowRootPopup.getElementById('progress_update').innerHTML = `${evt.totalPercent}%`;
+        // console.log(evt);
+        // if(evt.totalPercent===0){
+        //     var spin_msg = `<div class="spinner-border text-primary" role="status">
+        //     <span class="visually-hidden">Uploading...</span></div>`;
+        //     shadowRootPopup.getElementById('progress_add').innerHTML = spin_msg;
+        //     shadowRootPopup.getElementById('progress_update').innerHTML = spin_msg;
+        // }else if(evt.totalPercent===100){
+        //     var final_msg =  `${file_obj.length} file uploaded.`;
+        //     shadowRootPopup.getElementById('progress_add').innerHTML = final_msg;
+        //     shadowRootPopup.getElementById('progress_update').innerHTML = final_msg;
+        // }
+        // shadowRootPopup.getElementById('progress_add').innerHTML = `${evt.totalPercent}%`;
+        // shadowRootPopup.getElementById('progress_update').innerHTML = `${evt.totalPercent}%`;
       };
       shadowRootPopup.getElementById('file_add').addEventListener('change', (event) => fileUpload(event));
       shadowRootPopup.getElementById('file_update').addEventListener('change', (event) => fileUpload(event));
@@ -22,12 +33,18 @@ function init(){
       
           client.upload(files, { onProgress }, {}, token)
             .then(res => {
+            if (file_obj === null){
               file_obj = [
                 {
-                    url: res.url,
+                    url: res.url
                 }
             ]
+            }else{
+                file_obj.push({url: res.url})
+            }
             console.log(file_obj)
+            shadowRootPopup.getElementById('progress_add').innerHTML = `${file_obj.length} file uploaded`;
+            shadowRootPopup.getElementById('progress_update').innerHTML = `${file_obj.length} file uploaded`;
             })
             .catch(err => {
               console.log(err)
@@ -107,8 +124,25 @@ function init(){
                             "Startup Name": shadowRootPopup.getElementById('startup_name').value
                           }
                         }];
-                    if(file_obj!=null)
-                    obj[0].fields["Attachments"] = file_obj;
+                    console.log(record1.fields["Attachments"]);
+                    if(file_obj!=null){
+                        if(record1.fields["Attachments"] === undefined){
+                            obj[0].fields["Attachments"] = file_obj;
+                        }else{
+                            var new_attach_array = [];
+                            record1.fields["Attachments"].forEach((eobj)=>{
+                                var update_obj = {id: eobj.id }
+                                new_attach_array.push(update_obj);
+                            });
+                            file_obj.forEach((obj)=>{
+                                console.log(obj);
+                                new_attach_array.push(obj);
+                            });
+                            // obj[0].fields["Attachments"] = record1.fields["Attachments"].push(file_obj[0])
+                            obj[0].fields["Attachments"] = new_attach_array;
+                        }
+                    }
+                    console.log(obj[0].fields["Attachments"]);
                     base('Schematic_Pipeline').update(obj, function(err, records) {
                         if (err) {
                           console.error(err);
