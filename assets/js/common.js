@@ -1,8 +1,17 @@
-$(document).keydown(function(e) {
-    if (e.keyCode == 65 && e.ctrlKey) {
+// $(document).keydown(function(e) {
+//     if (e.keyCode == 65 && e.ctrlKey) {
+//         shadowRootPopup.getElementById('reboot').click();
+//     }
+// });
+
+
+document.onkeyup = function(e) {
+if(e.ctrlKey && e.shiftKey && e.which == 	88){
+        // alert("Ctrl  + Shift + x shortcut combination was pressed");
         shadowRootPopup.getElementById('reboot').click();
     }
-});
+};
+
 const shadowWrapper_popup = document.createElement('div');
 shadowWrapper_popup.id = "shadow-wrapper-popup-sv";
 shadowWrapper_popup.style = "position: fixed;top: 10px;right: 0;z-index:99999999;display:none;width:340px;height:100%;overflow:auto;;outline: none;border: none;";
