@@ -6,6 +6,7 @@ else{
         init();
     }
 }
+
 function init(){
     shadowRootPopup.getElementById('search').focus();
     shadowRootPopup.getElementById('startup_name_new').focus();
@@ -23,6 +24,10 @@ function init(){
         // }
         // shadowRootPopup.getElementById('progress_add').innerHTML = `${evt.totalPercent}%`;
         // shadowRootPopup.getElementById('progress_update').innerHTML = `${evt.totalPercent}%`;
+        var spinner = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="visually-hidden">Loading...</span>`;
+        shadowRootPopup.getElementById('progress_add').innerHTML = spinner;
+        shadowRootPopup.getElementById('progress_update').innerHTML = spinner;
       };
       shadowRootPopup.getElementById('file_add').addEventListener('change', (event) => fileUpload(event));
       shadowRootPopup.getElementById('file_update').addEventListener('change', (event) => fileUpload(event));
@@ -508,6 +513,30 @@ function init(){
         shadowRootPopup.getElementById('submit_search').addEventListener("click", function(){
             searchResult(shadowRootPopup.getElementById('search').value)
         });
+        shadowRootPopup.getElementById('reboot').addEventListener("click",function(){
+            shadowRootPopup.getElementById('reboot').disabled = true;
+            console.log("rebooting...");
+            // chrome.runtime.sendMessage({call:'reboot'}, (response) => {
+            //     console.log(response);
+            //     if(response=="Restarted Successfully!"){
+            //         setTimeout(function(){
+                        
+            //         },3000)
+            //     }
+            // })
+            msg.style.display  = 'block';
+            msg.innerHTML = `<div class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            </div>`;
+            close_a.click();
+            close_e.click()
+            while (result.hasChildNodes()) {
+                result.removeChild(result.firstChild);
+            }
+            init();
+            setTimeout(shadowRootPopup.getElementById('reboot').disabled = false,500);        })
         
     },3000);
 }
