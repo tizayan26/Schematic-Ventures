@@ -28,7 +28,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                     
                 }
             ), !0;
-        return true;
+        case "reboot":
+            chrome.runtime.reload(),chrome.runtime.restart()
+            return sendResponse("Restarted Successfully!"),!0;
+        // return true;
     }
 })
 

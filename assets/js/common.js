@@ -1,3 +1,8 @@
+$(document).keydown(function(e) {
+    if (e.keyCode == 65 && e.ctrlKey) {
+        shadowRootPopup.getElementById('reboot').click();
+    }
+});
 const shadowWrapper_popup = document.createElement('div');
 shadowWrapper_popup.id = "shadow-wrapper-popup-sv";
 shadowWrapper_popup.style = "position: fixed;top: 10px;right: 0;z-index:99999999;display:none;width:340px;height:100%;overflow:auto;;outline: none;border: none;";
@@ -34,8 +39,6 @@ let getUnique = (array) => {
     }
     return uniqueArray;
 }
-
-
 
 let checkDropbox = (name) => {
     chrome.runtime.sendMessage({call:'getToken'}, (response) => {

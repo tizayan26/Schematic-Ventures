@@ -111,7 +111,8 @@ function loadPopup() {
     .top-right-head{
         position: relative;
         top: 2px;
-        left: 40px;
+        /*left: 40px;*/
+        left: 18px;
         font-size: 12px;
         color: #686868;
     }
@@ -206,7 +207,7 @@ function loadPopup() {
         border: 1px solid #BEBEBE;
         outline: none;
         padding: 8px 12px
-      }
+    }
       
     input[type="search"] {
         border: none;
@@ -217,7 +218,7 @@ function loadPopup() {
         border: 1px solid transparent;
         outline:none;
         width:90%;
-      }
+    }
     button.btn-search {
         text-indent: -999px;
         overflow: hidden;
@@ -229,11 +230,26 @@ function loadPopup() {
         background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat center;
         cursor: pointer;
         opacity: 0.7;
-      }
+    }
       
-      button.btn-search:hover {
+    button.btn-search:hover {
         opacity: 1;
-      }
+    }
+
+    button.reboot{
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        height: 18px;
+        width: 15px;
+        background-repeat: no-repeat;
+        background-position: center;
+        border: none;
+        background: transparent url("data:image/svg+xml,%3Csvg width='15' height='18' viewBox='0 0 15 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.50241 0V2.2836C4.00686 2.2836 0.963827 4.8247 0.187253 8.39561C-0.589037 11.9668 1.10275 15.64 4.25365 17.2262C7.40444 18.8122 11.1964 17.9012 13.3722 15.0345C15.548 12.168 15.542 8.089 13.3576 5.22977L11.8931 6.45726C13.5374 8.60948 13.5429 11.6546 11.9057 13.812C10.268 15.9697 7.43583 16.6503 5.06434 15.4564C2.69277 14.2625 1.43139 11.5209 2.01591 8.83304C2.60015 6.14508 4.87157 4.24773 7.50264 4.24773V6.60308L11.2516 3.30152L7.50241 0Z' fill='%23686868'/%3E%3C/svg%3E");
+    }
+    button.reboot:hover {
+        opacity: 1;
+    }
     `;
     head.appendChild(style);
     var body = document.createElement('body');
@@ -250,7 +266,7 @@ function loadPopup() {
             <div class="blue-logo-bar"></div>
         </div>
         <div class="col-sm-3">
-        <span class="top-right-head">Deal CRM</span>
+        <span class="top-right-head">Deal CRM</span><button class="reboot" id="reboot"></button>
         </div>
     </div>
    
