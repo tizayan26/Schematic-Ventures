@@ -395,6 +395,20 @@ function init(){
                                 addRecord(false,new_email,url_new);
                             }
                             result.appendChild(li);
+                        }else{
+                            var url_new = window.location.protocol+'//'+website_url.replace('www.','');
+                            var li = document.createElement('li');
+                            li.tabIndex = tab_index;
+                            var span = document.createElement('span');
+                            var icon = `<span class="icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.5 0C6.01055 0 5.61361 0.396919 5.61361 0.886387V5.61361H0.886387C0.396935 5.61361 0 6.01053 0 6.5C0 6.98947 0.396919 7.38639 0.886387 7.38639H5.61361V12.1136C5.61361 12.6031 6.01053 13 6.5 13C6.98947 13 7.38639 12.6033 7.38639 12.1136V7.38639H12.1136C12.6031 7.38639 13 6.98947 13 6.5C13 6.01053 12.6031 5.61361 12.1136 5.61361H7.38639V0.886387C7.38639 0.396935 6.98967 0 6.5 0Z" fill="#767676"/>
+                            </svg></span>`;
+                            li.innerHTML = url_new + icon;
+                            li.className = 'add';
+                            li.onclick = function(){
+                                addRecord(false,'',url_new);
+                            }
+                            result.appendChild(li);
                         }
                         
                     }
