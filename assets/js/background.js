@@ -1,6 +1,15 @@
-chrome.browserAction.onClicked.addListener((tab)=>{
+// chrome.browserAction.onClicked.addListener((tab)=>{
+//     chrome.tabs.sendMessage(tab.id, "toggle");
+// });
+
+chrome.action.onClicked.addListener(tab => {
+    // Send a message to the active tab
+    // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    //   var activeTab = tabs[0];
+    //   chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action"});
+    // });
     chrome.tabs.sendMessage(tab.id, "toggle");
-});
+  });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     switch (request.call) {

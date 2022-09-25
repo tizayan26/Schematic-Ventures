@@ -260,7 +260,7 @@ function loadPopup() {
     <div class="container container-sv">
     <div class="row pt-3 pb-1">
         <div class="col-sm-1">
-            <img class="logo" src="${chrome.extension.getURL('assets/icons/sv-16x16.png')}" /> 
+            <img class="logo" src="${chrome.runtime.getURL('assets/icons/sv-16x16.png')}" /> 
         </div>
         <div class="col-sm-7">
             <div class="blue-logo-bar"></div>
