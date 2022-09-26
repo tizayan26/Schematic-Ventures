@@ -383,6 +383,13 @@ $(document).ready(function(){
         }
 
         let searchResult = (keyword) => {
+            msg.style.display  = 'block';
+            msg.innerHTML = `<div class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            </div>`;
+            var tab_index = 0;
             if(keyword.split('').length>1){
                 while (result.hasChildNodes()) {
                     result.removeChild(result.firstChild);
@@ -401,7 +408,8 @@ $(document).ready(function(){
                                 $('#shadow-wrapper-popup-sv').slideToggle("slow");
                             }
                         });
-                        msg.remove();
+                        msg.innerText = '';
+                        msg.style.display  = 'none';
                         while (result.hasChildNodes()) {
                             result.removeChild(result.firstChild);
                         }
@@ -432,7 +440,7 @@ $(document).ready(function(){
                     if (err) { console.error(err); return; }
                 });
             }
-            else if(keyword.split('').length==0){
+            else if(keyword.length==0){
                 while (result.hasChildNodes()) {
                     result.removeChild(result.firstChild);
                 }
@@ -440,8 +448,39 @@ $(document).ready(function(){
             }
         }
       
-        $(shadowRootPopup.getElementById('search')).keyup(function() {
+        // $(shadowRootPopup.getElementById('search')).keyup(function() {
+        //     searchResult(this.value);
+        // });
+        shadowRootPopup.getElementById('search').addEventListener("search", function(){
             searchResult(this.value);
         });
+        shadowRootPopup.getElementById('submit_search').addEventListener("click", function(){
+            searchResult(shadowRootPopup.getElementById('search').value)
+        });
+
+        shadowRootPopup.getElementById('reboot').addEventListener("click",function(){
+            shadowRootPopup.getElementById('reboot').disabled = true;
+            console.log("rebooting...");
+            // chrome.runtime.sendMessage({call:'reboot'}, (response) => {
+            //     console.log(response);
+            //     if(response=="Restarted Successfully!"){
+            //         setTimeout(function(){
+                        
+            //         },3000)
+            //     }
+            // })
+            msg.style.display  = 'block';
+            msg.innerHTML = `<div class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            </div>`;
+            close_a.click();
+            close_e.click()
+            while (result.hasChildNodes()) {
+                result.removeChild(result.firstChild);
+            }
+            getLinkedInList(ceo_linkedin);
+            setTimeout(shadowRootPopup.getElementById('reboot').disabled = false,500);        })
     },3000);
 })
