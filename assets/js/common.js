@@ -35,6 +35,15 @@ let extractEmails = (text) =>
     return text.match(/((?!\S*\.(?:jpg|png|gif|bmp)(?:[\s\n\r]|$))[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
 }
 
+function validateEmail(email) 
+{
+    var img_fromats = ['.png','.gif','.bmp','.jpg','.tiff','.pdf','.jpeg','.webp'];
+    var tariling_part = (email.slice(email.lastIndexOf(".")));
+    console.log(img_fromats.includes(tariling_part));
+    if(img_fromats.includes(tariling_part))
+        return (false)
+    return (true)
+}
 
 let getUnique = (array) => {
     var uniqueArray = [];
