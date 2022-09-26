@@ -592,7 +592,6 @@ function GMassReady(){
         }      
     }
 
-
     let searchResult = (keyword) => {
         msg.style.display  = 'block';
         msg.innerHTML = `<div class="text-center">
