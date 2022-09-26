@@ -298,8 +298,14 @@ function init(){
                         "Startup Name": shadowRootPopup.getElementById('startup_name_new').value,
                       }
                     }];
-                    if(file_obj!=null)
-                    obj[0].fields["Attachments"] = file_obj;
+                    if(file_obj!=null){
+                        var new_attach_array = [];
+                        file_obj.forEach((obj)=>{
+                            console.log(obj);
+                            new_attach_array.push(obj);
+                        });
+                        obj[0].fields["Attachments"] = new_attach_array;
+                    }
                     base('Schematic_Pipeline').create(obj, function(err, records) {
                         if (err) {
                           console.error(err);

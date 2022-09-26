@@ -19,8 +19,10 @@ function GMassReady(){
     var close_e = shadowRootPopup.getElementById('close_edit');
     msg.style.display = 'none';
     const onProgress = (evt) => {
-        shadowRootPopup.getElementById('progress_add').innerHTML = `${evt.totalPercent}%`;
-        shadowRootPopup.getElementById('progress_update').innerHTML = `${evt.totalPercent}%`;
+        var spinner = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="visually-hidden">Loading...</span>`;
+        shadowRootPopup.getElementById('progress_add').innerHTML = spinner;
+        shadowRootPopup.getElementById('progress_update').innerHTML = spinner;
     };
       shadowRootPopup.getElementById('file_add').addEventListener('change', (event) => fileUpload(event));
       shadowRootPopup.getElementById('file_update').addEventListener('change', (event) => fileUpload(event));
@@ -30,13 +32,18 @@ function GMassReady(){
       
           client.upload(files, { onProgress }, {}, token)
             .then(res => {
-           
-              file_obj = [
-                {
-                    url: res.url,
+                if (file_obj === null){
+                    file_obj = [
+                        {
+                            url: res.url,
+                        }
+                    ]
+                }else{
+                    file_obj.push({url: res.url})
                 }
-            ]
-            console.log(file_obj)
+                console.log(file_obj);
+                shadowRootPopup.getElementById('progress_add').innerHTML = `${file_obj.length} file uploaded`;
+                shadowRootPopup.getElementById('progress_update').innerHTML = `${file_obj.length} file uploaded`;
             })
             .catch(err => {
               console.log(err)
@@ -107,8 +114,22 @@ function GMassReady(){
                       }
                     }];
                     console.log(file_obj);
-                if(file_obj!=null)
-                obj[0].fields["Attachments"] = file_obj;
+                if(file_obj!=null){
+                    if(record1.fields["Attachments"] === undefined){
+                        obj[0].fields["Attachments"] = file_obj;
+                    }else{
+                        var new_attach_array = [];
+                        record1.fields["Attachments"].forEach((eobj)=>{
+                            var update_obj = {id: eobj.id }
+                            new_attach_array.push(update_obj);
+                        });
+                        file_obj.forEach((obj)=>{
+                            console.log(obj);
+                            new_attach_array.push(obj);
+                        });
+                        obj[0].fields["Attachments"] = new_attach_array;
+                    }
+                }
                 base('Schematic_Pipeline').update(obj, function(err, records) {
                     if (err) {
                       console.error(err);
@@ -261,8 +282,15 @@ function GMassReady(){
                     "Startup Name": shadowRootPopup.getElementById('startup_name_new').value
                 }
                 }];
-                if(file_obj!=null)
-                obj[0].fields["Attachments"] = file_obj;
+                if(file_obj!=null){
+                    // obj[0].fields["Attachments"] = file_obj;
+                    var new_attach_array = [];
+                    file_obj.forEach((obj)=>{
+                        console.log(obj);
+                        new_attach_array.push(obj);
+                    });
+                    obj[0].fields["Attachments"] = new_attach_array;
+                }
                 base('Schematic_Pipeline').create(obj, function(err, records) {
                     if (err) {
                     console.error(err);
