@@ -13,12 +13,13 @@ $(document).ready(function(){
       function fileUpload(event){
           const files = event.target.files[0];
           const token = {};
-          client.upload(files, { onProgress }, {}, token)
+          client.upload(files, { onProgress }, { filename: files.name }, token)
             .then(res => {
                 if (file_obj === null){
                     file_obj = [
                         {
                             url: res.url,
+                            filename: res._file.name
                         }
                     ]
                 }else{
@@ -29,7 +30,9 @@ $(document).ready(function(){
                 shadowRootPopup.getElementById('progress_update').innerHTML = `${file_obj.length} file uploaded`;
             })
             .catch(err => {
-              console.log(err)
+              console.log(err);
+              shadowRootPopup.getElementById('progress_add').innerHTML = `Upload Error: ${err}!`;
+              shadowRootPopup.getElementById('progress_update').innerHTML = `Upload Error: ${err}!`;
             });
       }
 
