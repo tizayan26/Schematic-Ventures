@@ -11,19 +11,6 @@ function init(){
     shadowRootPopup.getElementById('search').focus();
     shadowRootPopup.getElementById('startup_name_new').focus();
     const onProgress = (evt) => {
-        // console.log(evt);
-        // if(evt.totalPercent===0){
-        //     var spin_msg = `<div class="spinner-border text-primary" role="status">
-        //     <span class="visually-hidden">Uploading...</span></div>`;
-        //     shadowRootPopup.getElementById('progress_add').innerHTML = spin_msg;
-        //     shadowRootPopup.getElementById('progress_update').innerHTML = spin_msg;
-        // }else if(evt.totalPercent===100){
-        //     var final_msg =  `${file_obj.length} file uploaded.`;
-        //     shadowRootPopup.getElementById('progress_add').innerHTML = final_msg;
-        //     shadowRootPopup.getElementById('progress_update').innerHTML = final_msg;
-        // }
-        // shadowRootPopup.getElementById('progress_add').innerHTML = `${evt.totalPercent}%`;
-        // shadowRootPopup.getElementById('progress_update').innerHTML = `${evt.totalPercent}%`;
         var spinner = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         <span class="visually-hidden">Loading...</span>`;
         shadowRootPopup.getElementById('progress_add').innerHTML = spinner;
@@ -37,17 +24,19 @@ function init(){
      
           client.upload(files, { onProgress }, { filename: files.name }, token)
             .then(res => {
-                // console.log(res._file.name);
             if (file_obj === null){
               file_obj = [
                 {
                     url: res.url,
-                    filename: res._file.name
+                    filename: res.filename
 
                 }
             ]
             }else{
-                file_obj.push({url: res.url})
+                file_obj.push({
+                    url: res.url, 
+                    filename: res.filename
+                })
             }
             console.log(file_obj)
             shadowRootPopup.getElementById('progress_add').innerHTML = `${file_obj.length} file uploaded`;
@@ -82,6 +71,8 @@ function init(){
             entry_content.style.display = "none";
             edit_content.style.display = "block";
             close_e.onclick = backToHome;
+            shadowRootPopup.getElementById('recordLink').href = `https://airtable.com/appMVKyhjdZhMRbRP/tblXLpQsYxo8iR1Vw/viw1cS2w5EB7hG4qz/${record.getId()}?blocks=hide`
+            shadowRootPopup.getElementById('recordLink').style.display = "block";
             base('Schematic_Pipeline').find(record.id, function(err, record1) {
                 if (err) { console.error(err); return; }
                 console.log('Retrieved', record1.id);
@@ -147,7 +138,6 @@ function init(){
                                 console.log(obj);
                                 new_attach_array.push(obj);
                             });
-                            // obj[0].fields["Attachments"] = record1.fields["Attachments"].push(file_obj[0])
                             obj[0].fields["Attachments"] = new_attach_array;
                         }
                     }
@@ -170,10 +160,6 @@ function init(){
                             shadowRootPopup.getElementById('btn_update').disabled = false;
                             shadowRootPopup.getElementById('update-msg').innerText = 'Updated Successfully!';
                         }
-                        // records.forEach(function(record) {
-                        //   checkDropbox(record.get('ID')+'-'+record.get('Startup Name'));
-                        //   console.log(record.get('Lead'));
-                        // });
                       })
                 }
             });
@@ -322,8 +308,9 @@ function init(){
                             shadowRootPopup.getElementById('btn_add').disabled = false
                             shadowRootPopup.getElementById('add-msg').innerHTML = 'Added Successfully!';
                             records.forEach(function (record) {
-                                // checkDropbox(record.get('ID')+'-'+record.get('Startup Name'));
                                 console.log(record.getId());
+                                shadowRootPopup.getElementById('recordLink').href = `https://airtable.com/appMVKyhjdZhMRbRP/tblXLpQsYxo8iR1Vw/viw1cS2w5EB7hG4qz/${record.getId()}?blocks=hide`
+                                shadowRootPopup.getElementById('recordLink').style.display = "block";
                                 updateRecord(record);
                             });
                         }
@@ -359,7 +346,6 @@ function init(){
                                 $('#shadow-wrapper-popup-sv').slideToggle("slow");
                             }
                         });
-                        // msg.remove();
                         msg.style.display  = 'none';
                        
                         records.forEach(function(record) {
@@ -474,7 +460,6 @@ function init(){
                                 $('#shadow-wrapper-popup-sv').slideToggle("slow");
                             }
                         });
-                        // msg.remove();
                         msg.innerText = '';
                         msg.style.display  = 'none';
                         while (result.hasChildNodes()) {
@@ -519,7 +504,6 @@ function init(){
                     if (err) { console.error(err); return; }
                 });
             }
-            // else if(keyword.split('').length==0){
             else if(keyword.length==0){
             while (result.hasChildNodes()) {
                     result.removeChild(result.firstChild);
@@ -527,10 +511,7 @@ function init(){
                 init();
             }
         }
-      
-        // $(shadowRootPopup.getElementById('search')).keyup(function() {
-        //     searchResult(this.value);
-        // });
+    
         shadowRootPopup.getElementById('search').addEventListener("search", function(){
             searchResult(this.value);
         });
@@ -540,14 +521,6 @@ function init(){
         shadowRootPopup.getElementById('reboot').addEventListener("click",function(){
             shadowRootPopup.getElementById('reboot').disabled = true;
             console.log("rebooting...");
-            // chrome.runtime.sendMessage({call:'reboot'}, (response) => {
-            //     console.log(response);
-            //     if(response=="Restarted Successfully!"){
-            //         setTimeout(function(){
-                        
-            //         },3000)
-            //     }
-            // })
             msg.style.display  = 'block';
             msg.innerHTML = `<div class="text-center">
             <div class="spinner-border text-primary" role="status">
@@ -560,7 +533,8 @@ function init(){
                 result.removeChild(result.firstChild);
             }
             init();
-            setTimeout(shadowRootPopup.getElementById('reboot').disabled = false,500);        })
+            setTimeout(shadowRootPopup.getElementById('reboot').disabled = false,500);
+        })
         
     },3000);
 }

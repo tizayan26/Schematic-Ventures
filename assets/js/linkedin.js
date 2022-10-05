@@ -19,11 +19,14 @@ $(document).ready(function(){
                     file_obj = [
                         {
                             url: res.url,
-                            filename: res._file.name
+                            filename: res.filename
                         }
                     ]
                 }else{
-                    file_obj.push({url: res.url});
+                    file_obj.push({
+                        url: res.url,
+                        filename: res.filename
+                    });
                 }
                 console.log(file_obj);
                 shadowRootPopup.getElementById('progress_add').innerHTML = `${file_obj.length} file uploaded`;
@@ -157,6 +160,9 @@ $(document).ready(function(){
             entry_content.style.display = "none";
             edit_content.style.display = "block";
             close_e.onclick = backToHome;
+            shadowRootPopup.getElementById('recordLink').href = `https://airtable.com/appMVKyhjdZhMRbRP/tblXLpQsYxo8iR1Vw/viw1cS2w5EB7hG4qz/${record.getId()}?blocks=hide`
+            shadowRootPopup.getElementById('recordLink').style.display = "block";
+            shadowRootPopup.getElementById('progress_update').innerText = '';
             base('Schematic_Pipeline').find(record.id, function(err, record1) {
                 if (err) { console.error(err); return; }
                 if(record1.get('CEO Email') !== undefined)
@@ -255,7 +261,7 @@ $(document).ready(function(){
             edit_content.style.display = "none";
             close_a.onclick = backToHome;
             shadowRootPopup.getElementById('ceo_linkedin_new').value = ceo_linkedin == null ? '' : ceo_linkedin;
-
+            shadowRootPopup.getElementById('progress_update').innerText = '';
             chrome.storage.local.get(['popsn','orsn'], function(result) {
                 if(result.popsn!=undefined){
                     if(result.popsn){
@@ -390,6 +396,8 @@ $(document).ready(function(){
                             shadowRootPopup.getElementById('add-msg').innerHTML = 'Added Successfully!';
                             records.forEach(function (record) {
                                 console.log(record.getId());
+                                shadowRootPopup.getElementById('recordLink').href = `https://airtable.com/appMVKyhjdZhMRbRP/tblXLpQsYxo8iR1Vw/viw1cS2w5EB7hG4qz/${record.getId()}?blocks=hide`
+                                shadowRootPopup.getElementById('recordLink').style.display = "block";
                                 updateRecord(record);
                             });
                         }
@@ -480,9 +488,6 @@ $(document).ready(function(){
             }
         }
       
-        // $(shadowRootPopup.getElementById('search')).keyup(function() {
-        //     searchResult(this.value);
-        // });
         shadowRootPopup.getElementById('search').addEventListener("search", function(){
             searchResult(this.value);
         });
@@ -493,14 +498,6 @@ $(document).ready(function(){
         shadowRootPopup.getElementById('reboot').addEventListener("click",function(){
             shadowRootPopup.getElementById('reboot').disabled = true;
             console.log("rebooting...");
-            // chrome.runtime.sendMessage({call:'reboot'}, (response) => {
-            //     console.log(response);
-            //     if(response=="Restarted Successfully!"){
-            //         setTimeout(function(){
-                        
-            //         },3000)
-            //     }
-            // })
             msg.style.display  = 'block';
             msg.innerHTML = `<div class="text-center">
             <div class="spinner-border text-primary" role="status">
@@ -513,6 +510,7 @@ $(document).ready(function(){
                 result.removeChild(result.firstChild);
             }
             getLinkedInList(ceo_linkedin);
-            setTimeout(shadowRootPopup.getElementById('reboot').disabled = false,500);        })
+            setTimeout(shadowRootPopup.getElementById('reboot').disabled = false,500);
+        })
     },3000);
 })

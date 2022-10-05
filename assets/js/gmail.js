@@ -35,11 +35,14 @@ function GMassReady(){
                     file_obj = [
                         {
                             url: res.url,
-                            filename: res._file.name
+                            filename: res.filename
                         }
                     ]
                 }else{
-                    file_obj.push({url: res.url})
+                    file_obj.push({
+                        url: res.url,
+                        filename: res.filename
+                    })
                 }
                 console.log(file_obj);
                 shadowRootPopup.getElementById('progress_add').innerHTML = `${file_obj.length} file uploaded`;
@@ -65,6 +68,9 @@ function GMassReady(){
         entry_content.style.display = "none";
         edit_content.style.display = "block";
         close_e.onclick = backToHome;
+        shadowRootPopup.getElementById('recordLink').href = `https://airtable.com/appMVKyhjdZhMRbRP/tblXLpQsYxo8iR1Vw/viw1cS2w5EB7hG4qz/${record.getId()}?blocks=hide`
+        shadowRootPopup.getElementById('recordLink').style.display = "block";
+        shadowRootPopup.getElementById('progress_update').innerText = '';
         base('Schematic_Pipeline').find(record.id, function(err, record1) {
             if (err) { console.error(err); return; }
             console.log('Retrieved', record1.id);
@@ -160,6 +166,7 @@ function GMassReady(){
         home_content.style.display = "none";
         edit_content.style.display = "none";
         close_a.onclick = backToHome;
+        shadowRootPopup.getElementById('progress_update').innerText = '';
         if(email!=null){
             shadowRootPopup.getElementById('ceo_email_new').value = email;
 
@@ -306,7 +313,8 @@ function GMassReady(){
                         shadowRootPopup.getElementById('add-msg').innerHTML = 'Added Successfully!';
                         records.forEach(function (record) {  
                             console.log(record.getId());
-                            // checkDropbox(record.get('ID')+'-'+record.get('Startup Name'));
+                            shadowRootPopup.getElementById('recordLink').href = `https://airtable.com/appMVKyhjdZhMRbRP/tblXLpQsYxo8iR1Vw/viw1cS2w5EB7hG4qz/${record.getId()}?blocks=hide`
+                            shadowRootPopup.getElementById('recordLink').style.display = "block";
                             updateRecord(record);
                         });
                     }
@@ -659,10 +667,6 @@ function GMassReady(){
             }
     }
   
-    // $(shadowRootPopup.getElementById('search')).keyup(function() {
-    //     searchResult(this.value);
-    // });
-
     shadowRootPopup.getElementById('search').addEventListener("search", function(){
         searchResult(this.value);
     });
@@ -673,14 +677,6 @@ function GMassReady(){
     shadowRootPopup.getElementById('reboot').addEventListener("click",function(){
         shadowRootPopup.getElementById('reboot').disabled = true;
         console.log("rebooting...");
-        // chrome.runtime.sendMessage({call:'reboot'}, (response) => {
-        //     console.log(response);
-        //     if(response=="Restarted Successfully!"){
-        //         setTimeout(function(){
-                    
-        //         },3000)
-        //     }
-        // })
         msg.style.display  = 'block';
         msg.innerHTML = `<div class="text-center">
         <div class="spinner-border text-primary" role="status">
@@ -694,6 +690,7 @@ function GMassReady(){
         }
         onUrlChange();
         init();
-        setTimeout(shadowRootPopup.getElementById('reboot').disabled = false,500);        })
+        setTimeout(shadowRootPopup.getElementById('reboot').disabled = false,500);
+    })
 
 }

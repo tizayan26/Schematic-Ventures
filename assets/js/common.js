@@ -1,13 +1,5 @@
-// $(document).keydown(function(e) {
-//     if (e.keyCode == 65 && e.ctrlKey) {
-//         shadowRootPopup.getElementById('reboot').click();
-//     }
-// });
-
-
 document.onkeyup = function(e) {
-if(e.ctrlKey && e.shiftKey && e.which == 	88){
-        // alert("Ctrl  + Shift + x shortcut combination was pressed");
+if(e.ctrlKey && e.shiftKey && e.which == 88){
         shadowRootPopup.getElementById('reboot').click();
     }
 };
@@ -31,7 +23,6 @@ var file_obj = null;
 
 let extractEmails = (text) =>
 {
-    // return text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
     return text.match(/((?!\S*\.(?:jpg|png|gif|bmp)(?:[\s\n\r]|$))[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
 }
 

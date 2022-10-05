@@ -255,6 +255,16 @@ function loadPopup() {
     .upload-progress{
         color:#3a3a3ae6;
     }
+    .record-link{
+       color:#686868;
+       text-decoration: none;
+       display:none;
+    }
+    .record-link>svg{
+        fill:#686868;
+        hight:12px;
+        width:12px;
+    }
     `;
     head.appendChild(style);
     var body = document.createElement('body');
@@ -274,7 +284,11 @@ function loadPopup() {
         <span class="top-right-head">Deal CRM</span><button class="reboot" id="reboot"></button>
         </div>
     </div>
-   
+    <div class="row">
+        <div class="col-sm-12">
+            <a class="record-link" id="recordLink" href="https://airtable.com/appMVKyhjdZhMRbRP/tblXLpQsYxo8iR1Vw/viw1cS2w5EB7hG4qz?blocks=hide" target="_blank">Go To Airtable <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg></a>
+        </div>
+    </div>
     <!-- start home -->
     <div id="home_content">
         <div class="row search-section">
