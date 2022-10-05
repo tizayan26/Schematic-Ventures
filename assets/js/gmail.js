@@ -9,7 +9,6 @@ else{
  
 function GMassReady(){
     var clicked = false;
-
     var result = shadowRootPopup.getElementById('crm_result');
     var msg = shadowRootPopup.getElementById('msg');
     var edit_content = shadowRootPopup.getElementById('edit_content');
